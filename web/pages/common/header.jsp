@@ -20,7 +20,7 @@
     <div class="collapse navbar-toggleable-sm" id="navbarResponsive">
         <a class="navbar-brand" href="index.jsp">
             <img src="static/images/sdust.png" height="30"/>
-            Home
+            首页
         </a>
         <ul class="nav navbar-nav">
             <li class="nav-item" id="nav-problem">
@@ -34,7 +34,7 @@
             </li>
             <c:if test="${sessionScope.type == 'admin'}">
                 <li class="nav-item" id="nav-user">
-                    <a class="nav-link" href="studentServlet?action=getAllStudent" style="color:#b0ead8;" >用户管理</a>
+                    <a class="nav-link" href="studentServlet?action=pageStudent" style="color:#b0ead8;" >用户管理</a>
                 </li>
             </c:if>
             <li class="nav-item" id="nav-group">

@@ -2,6 +2,7 @@ package com.onlineTest.service.impl;
 
 import com.onlineTest.dao.StudentDao;
 import com.onlineTest.dao.impl.StudentDaoImpl;
+import com.onlineTest.pojo.Page;
 import com.onlineTest.pojo.Student;
 import com.onlineTest.service.StudentService;
 
@@ -34,5 +35,20 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> queryAllStudent() {
         return studentDao.queryAllStudent();
+    }
+
+    @Override
+    public Page<Student> page(Integer pageNo, Integer pageSize) {
+        Page<Student> page = new Page<Student>();
+        Integer totalCount = studentDao.queryTotalCount();
+        page.setPageTotalCount(totalCount);
+        Integer pageTotal = totalCount / pageSize + (totalCount%pageSize==0? 0 : 1);
+        page.setPageTotal(pageTotal);
+        page.setPageNo(pageNo);
+        page.setPageSize(pageSize);
+        Integer begin = (page.getPageNo() - 1) * page.getPageSize();
+        List<Student> students = studentDao.queryForPageItems(begin,pageSize);
+        page.setItems(students);
+        return page;
     }
 }

@@ -1,5 +1,6 @@
 package com.onlineTest.service;
 
+import com.onlineTest.pojo.Page;
 import com.onlineTest.pojo.Student;
 
 import java.util.List;
@@ -13,4 +14,6 @@ public interface StudentService {
     void registStudent(Student student);
 
     List<Student> queryAllStudent();
+
+    Page<Student> page(Integer pageNo,Integer pageSize);
 }

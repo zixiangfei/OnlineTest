@@ -29,4 +29,18 @@ public class StudentDaoImpl extends BaseDao implements StudentDao {
         String sql = "select * from student";
         return queryForList(Student.class,sql);
     }
+
+    @Override
+    public Integer queryTotalCount() {
+        String sql = "select count(*) from student";
+        Number count =(Number) queryForSingleValue(sql);
+        return count.intValue();
+    }
+
+    @Override
+    public List<Student> queryForPageItems(Integer begin, Integer pageSize) {
+        String sql = "select * from student limit ?,?";
+        List<Student> students = queryForList(Student.class,sql,begin,pageSize);
+        return students;
+    }
 }

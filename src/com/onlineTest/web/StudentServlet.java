@@ -75,6 +75,11 @@ public class StudentServlet extends BaseServlet{
         Integer pageNo = WebUtils.parseInt(req.getParameter("pageNo"),1);
         Integer pageSize = WebUtils.parseInt(req.getParameter("pageSize"), Page.page_size);
 
-        List<Student> students = studentService.
+        Page<Student> page = studentService.page(pageNo,pageSize);
+        page.setType("student");
+        page.setUrl("studentServlet?action=pageStudent");
+        req.setAttribute("page",page);
+
+        req.getRequestDispatcher("/pages/manager/manager.jsp").forward(req,resp);
     }
 }

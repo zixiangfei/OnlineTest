@@ -10,6 +10,17 @@ public class Page<T> {
     private Integer pageTotalCount;
     private List<T> items;
     private String url;
+    private String type;
+
+
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getUrl() {
         return url;
@@ -74,6 +85,7 @@ public class Page<T> {
                 ", pageTotalCount=" + pageTotalCount +
                 ", items=" + items +
                 ", url='" + url + '\'' +
+                ", type='" + type + '\'' +
                 '}';
     }
 }

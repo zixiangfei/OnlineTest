@@ -35,4 +35,8 @@ public class StudentDaoImplTest {
         }
     }
 
+    @Test
+    public void queryTotalCount() {
+        System.out.println(studentDao.queryTotalCount());
+    }
 }

@@ -13,4 +13,8 @@ public interface StudentDao {
     public int saveStudent(Student student);
 
     public List<Student> queryAllStudent();
+
+    public Integer queryTotalCount();
+
+    public List<Student> queryForPageItems(Integer begin,Integer pageSize);
 }
