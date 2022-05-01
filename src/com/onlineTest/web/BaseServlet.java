@@ -19,6 +19,7 @@ public abstract class BaseServlet extends HttpServlet {
         resp.setContentType("text/html;charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
+        System.out.println(action);
         try {
             Method method = this.getClass().getDeclaredMethod(action,HttpServletRequest.class,HttpServletResponse.class);
             System.out.println(method);

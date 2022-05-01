@@ -373,42 +373,96 @@ div.table-responsive>div.dataTables_wrapper>div.row>div[class^=col-]:first-child
 div.table-responsive>div.dataTables_wrapper>div.row>div[class^=col-]:last-child {
     padding-right:0
 }
-#listUser_wrapper {
+#listProblem {
+    table-layout:fixed
+}
+#listProblem th {
+    text-align:center
+}
+#listProblem th.solved {
+    width:65px
+}
+#listProblem th.fav,
+#listProblem th.submit {
+    padding:30px 10px;
+    width:18px
+}
+#listProblem th.oj {
+    width:90px
+}
+#listProblem th.oj select[name=OJId] {
+    font-weight:400;
+    height:15px;
+    width:50px
+}
+#listProblem th.prob_num {
+    width:100px
+}
+#listProblem th.title {
+    width:280px
+}
+#listProblem th.date {
+    width:150px
+}
+#listProblem th.solved_users {
+    width:65px
+}
+#listProblem th.source {
+    width:auto
+}
+#listProblem td {
+    padding:4px 6px
+}
+#listProblem td div {
+    height:20px;
+    overflow:hidden;
+    white-space:nowrap
+}
+#listProblem td.fav,
+#listProblem td.solved,
+#listProblem td.submit {
+    text-align:center
+}
+#listProblem td.oj {
+    text-align:right
+}
+#listProblem td.prob_num {
+    text-align:left
+}
+#listProblem td.title i {
+    float:right;
+    margin-right:5px
+}
+#listProblem td.date {
+    text-align:center
+}
+#listProblem td.date div {
+    display:inline
+}
+#listProblem td.source div {
+    height:20px
+}
+#listProblem td.source:hover div {
+    height:auto
+}
+#listProblem td.solved_users {
+    text-align:left
+}
+#listProblem_wrapper {
     font-size:14px
 }
-#listUser_wrapper .dataTables_paginate {
+#listProblem_wrapper .dataTables_paginate {
     float:left;
     text-align:center
 }
-#listUser_wrapper .dataTables_length {
+#listProblem_wrapper ul.pagination>li:nth-last-child(2) {
+    display:none
+}
+#listProblem_wrapper .dataTables_length {
     float:right
 }
-#listUser_wrapper #buttonContainer_l {
+#listProblem_wrapper #buttonContainer {
     float:left;
     line-height:37px;
     padding-left:40px
-}
-#listUser_wrapper #buttonContainer_r {
-    float:right;
-    line-height:37px
-}
-#listUser {
-    table-layout:fixed
-}
-#listUser td {
-    padding:4px 6px;
-    text-align:center
-}
-#listUser th.rank {
-    width:40px
-}
-#listUser th.nickname,
-#listUser th.school {
-    width:200px
-}
-#listUser th.solved {
-    width:50px
-}
-#listUser th.attempted {
-    width:70px
 }

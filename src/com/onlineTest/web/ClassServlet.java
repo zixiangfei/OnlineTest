@@ -22,6 +22,7 @@ public class ClassServlet extends BaseServlet{
         Page<Class> page = classService.page(pageNo,pageSize);
         page.setType("class");
         page.setUrl("classServlet?action=pageClass");
+        req.setAttribute("page",page);
 
         req.getRequestDispatcher("/pages/manager/manager-class.jsp").forward(req,resp);
 

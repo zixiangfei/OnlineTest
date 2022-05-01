@@ -11,9 +11,59 @@
     <title>Manager-OnlineTest</title>
     <%@include file="/pages/common/head.jsp"%>
     <script type="text/javascript">
-        <c:if test="${not sessionScope.type eq 'admin'}">
-        window.location.replace("pages/user/login.jsp");
-        </c:if>
+        $(function () {
+            <c:if test="${not sessionScope.type eq 'admin'}">
+            window.location.replace("pages/user/login.jsp");
+            </c:if>
+
+            $("#insertSubjectClose").click(function () {
+                $("#insertSubjectModal").removeClass("in");
+                $("#insertSubjectModal").attr("style","display:none;");
+                $("#insertSubjectModal").attr("aria-hidden","false");
+            })
+
+            $("#insertSubjectCancel").click(function () {
+                $("#insertSubjectModal").removeClass("in");
+                $("#insertSubjectModal").attr("style","display:none;");
+                $("#insertSubjectModal").attr("aria-hidden","false");
+            })
+
+            $("#insertSubjectOpen").click(function () {
+              //  alert(11);
+                $("#insertSubjectModal").addClass("in");
+                $("#insertSubjectModal").attr("style","display:block;");
+                $("#insertSubjectModal").attr("aria-hidden","true");
+            })
+
+            $("#btn-insert").click(function () {
+              //  alert(1111);
+                var username = $("#insert-name").val();
+                console.log(username);
+                $.getJSON("${pageScope.basePath}subjectServlet","action=ajaxExistsSubjectName&name="+username,function (data) {
+                    console.log(data)
+                    if(data.existsSubjectName) {
+                        $("#insert-alert").attr("style","display:block");
+                        $("#insert-alert").innerHTML="已存在该课程";
+                    }
+                    // else {
+                    //     $("#add-form").submit();
+                    // }
+                })
+            })
+
+            $("#insert-name").change(function () {
+                var username = this.value;
+                console.log(username);
+                $.getJSON("${pageScope.basePath}subjectServlet","action=ajaxExistsSubjectName&name="+username,function (data) {
+                    console.log(data)
+                    if(data.existsSubjectName) {
+                        $("#insert-alert").attr("style","display:block");
+                        $("#insert-alert").text("已存在该课程");
+                    }
+                })
+            })
+        })
+
     </script>
     <style type="text/css">
         .not-active {
@@ -33,10 +83,10 @@
                     <div class="dataTables_paginate paging_simple_numbers" id="listUser_paginate">
                         <%@include file="/pages/common/page_nav.jsp"%>
                     </div>
-<%--                    <div id="buttonContainer_l">--%>
+                    <div id="buttonContainer_l">
 <%--                        <input type="button" id="filter" class="btn btn-secondary btn-md" value="Filter" style="">--%>
-<%--                        <input type="button" id="reset" class="btn btn-secondary btn-md" value="Reset" style="">--%>
-<%--                    </div>--%>
+                        <input type="button" id="insertSubjectOpen" class="btn btn-secondary btn-md" value="新增" style="">
+                    </div>
                     <div id="buttonContainer_r">
                         <div id="statRange" class="btn-group" data-toggle="buttons" style="">
                             <label class="btn btn-secondary" id="btn-teacher">
@@ -76,7 +126,7 @@
                     <c:forEach items="${requestScope.page.items}" var="subject" varStatus="i">
                     <tr class="${i.index%2==0?"odd":"even"}">
                         <td class="rank">${i.index+1}</td>
-                        <td class=" username"><a href="/user/Heart_Blue" target="_blank">${subject.username}</a></td>
+                        <td class=" username">${subject.name}</td>
                         <td class=" nickname">1</td>
 <%--                        <td class=" school"><div>${student.classId}</div></td>--%>
                         <td class=" solved"><a href="" target="_blank">1</a></td>
@@ -89,7 +139,41 @@
     </div>
 </div>
 
-
+<div class="modal fade" id="insertSubjectModal" tabindex="-1" role="dialog" style="display: none;" aria-hidden="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="insertSubjectClose">
+                    <span>×</span>
+                </button>
+                <h4 class="modal-title" id="loginModalLabel">增加课程</h4>
+            </div>
+            <div class="modal-body">
+                <form id="add-form" action="subjectServlet" method="get">
+                    <input hidden="hidden" name="action" value="add">
+                    <input hidden="hidden" name="pageNo" value="${requestScope.page.pageNo}">
+                    <div class="form-group">
+                        <!--<label for="login-username" class="form-control-label">Username:</label>-->
+                        <input type="text" class="form-control" name="insert-name" id="insert-name" placeholder="请输入课程名称">
+                    </div>
+<%--                    <div class="form-group">--%>
+<%--                        <!--<label for="login-password" class="form-control-label">Password:</label>-->--%>
+<%--                        <input type="password" class="form-control" id="login-password" placeholder="Password">--%>
+<%--                    </div>--%>
+                    <input type="submit" style="display: none">
+                </form>
+            </div>
+            <div class="modal-footer">
+                    <div class="alert alert-danger" role="alert" id="insert-alert" style="display: none"></div>
+<%--                <button type="button" class="btn btn-secondary float-xs-left" id="btn-forget-password">--%>
+<%--                    Forget Password--%>
+<%--                </button>--%>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="insertSubjectCancel">取消</button>
+                <button type="button" class="btn btn-primary" id="btn-insert">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
 <%@include file="/pages/common/footer.jsp"%>
 </body>
 </html>

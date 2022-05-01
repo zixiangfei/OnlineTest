@@ -79,7 +79,7 @@ public class StudentServlet extends BaseServlet{
         page.setType("student");
         page.setUrl("studentServlet?action=pageStudent");
         req.setAttribute("page",page);
-
+        System.out.println(page);
         req.getRequestDispatcher("/pages/manager/manager-student.jsp").forward(req,resp);
     }
 }
