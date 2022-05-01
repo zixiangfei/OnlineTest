@@ -1,8 +1,10 @@
 package com.onlineTest.web;
 
+import com.onlineTest.pojo.Page;
 import com.onlineTest.pojo.Teacher;
 import com.onlineTest.service.TeacherService;
 import com.onlineTest.service.impl.TeacherServiceImpl;
+import com.onlineTest.utils.WebUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -57,5 +59,17 @@ public class TeacherServlet extends BaseServlet{
             req.setAttribute("msg","验证码错误");
             req.getRequestDispatcher("/pages/user/regist.jsp").forward(req,resp);
         }
+    }
+
+    protected void pageTeacher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Integer pageNo = WebUtils.parseInt(req.getParameter("pageNo"),1);
+        Integer pageSize = WebUtils.parseInt(req.getParameter("pageSize"), Page.page_size);
+
+        Page<Teacher> page = teacherService.page(pageNo,pageSize);
+        page.setType("teacher");
+        page.setUrl("teacherServlet?action=pageTeacher");
+        req.setAttribute("page",page);
+
+        req.getRequestDispatcher("/pages/manager/manager-teacher.jsp").forward(req,resp);
     }
 }

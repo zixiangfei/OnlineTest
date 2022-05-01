@@ -62,5 +62,25 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>ClassServlet</servlet-name>
+        <servlet-class>com.onlineTest.web.ClassServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ClassServlet</servlet-name>
+        <url-pattern>/classServlet</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>SubjectServlet</servlet-name>
+        <servlet-class>com.onlineTest.web.SubjectServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SubjectServlet</servlet-name>
+        <url-pattern>/subjectServlet</url-pattern>
+    </servlet-mapping>
+
+
 
 </web-app>

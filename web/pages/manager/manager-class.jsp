@@ -9,11 +9,11 @@
 <html>
 <head>
     <title>Manager-OnlineTest</title>
+    <%@include file="/pages/common/head.jsp"%>
     <script type="text/javascript">
-        $(function () {
-            $(".btn-secondary").removeClass("active disabled");
-            $("#btn-${requestScope.page.type}").addClass("active not-active");
-        })
+        <c:if test="${not sessionScope.type eq 'admin'}">
+        window.location.replace("pages/user/login.jsp");
+        </c:if>
     </script>
     <style type="text/css">
         .not-active {
@@ -40,15 +40,15 @@
                     <div id="buttonContainer_r">
                         <div id="statRange" class="btn-group" data-toggle="buttons" style="">
                             <label class="btn btn-secondary" id="btn-teacher">
-                                <a href="studentServlet?action=pageStudent" style="color:#000;">教师</a>
+                                <a href="teacherServlet?action=pageTeacher" style="color:#000;">教师</a>
                             </label>
                             <label class="btn btn-secondary" id="btn-course">
-                                <a href="studentServlet?action=pageStudent" style="color:#000;">课程</a>
+                                <a href="subjectServlet?action=pageSubject" style="color:#000;">课程</a>
                             </label>
-                            <label class="btn btn-secondary" id="btn-class">
-                                <a href="studentServlet?action=pageStudent" style="color:#000;">班级</a>
+                            <label class="btn btn-secondary  active not-active" id="btn-class">
+                                <a href="classServlet?action=pageClass" style="color:#000;">班级</a>
                             </label>
-                            <label class="btn btn-secondary active not-active" id="btn-student">
+                            <label class="btn btn-secondary " id="btn-student">
                                 <a href="studentServlet?action=pageStudent" style="color:#000;">学生</a>
                             </label>
                         </div>
@@ -57,30 +57,30 @@
                 <table id="listUser" class="table table-striped table-bordered table-responsive dataTable no-footer">
                     <thead>
                     <tr>
-                        <th class="rank" rowspan="1" colspan="1" aria-label="Rank" align="center">Rank</th>
-                        <th class="username sorting_disabled" rowspan="1" colspan="1" aria-label="Username">Username<br>
+                        <th class="rank" rowspan="1" colspan="1" aria-label="Rank" align="center">编号</th>
+                        <th class="username sorting_disabled" rowspan="1" colspan="1" aria-label="Username">班级名<br>
 <%--                            <input type="text" id="username" name="username" class="search_text" style="width:95%">--%>
                         </th>
-                        <th class="nickname sorting_disabled" rowspan="1" colspan="1" aria-label="Nickname">Nickname<br>
+                        <th class="nickname sorting_disabled" rowspan="1" colspan="1" aria-label="Nickname">教师名<br>
 <%--                            <input type="text" id="nickname" name="nickname" class="search_text" style="width:95%">--%>
                         </th>
-                        <th class="school sorting_disabled" rowspan="1" colspan="1" aria-label="School">School<br>
+<%--                        <th class="school sorting_disabled" rowspan="1" colspan="1" aria-label="School">School<br>--%>
 <%--                        <input type="text" id="school" name="school" class="search_text" style="width:95%">--%>
                         </th>
-                        <th class="solved sorting_disabled" rowspan="1" colspan="1" aria-label="Solved">Solved</th>
+                        <th class="solved sorting_disabled" rowspan="1" colspan="1" aria-label="Solved">修改</th>
 <%--                        <th class="attempted sorting_disabled" rowspan="1" colspan="1" aria-label="Attempted">Attempted</th>--%>
                     </tr>
                     </thead>
 <%--                    <tbody>--%>
                     <tbody>
-                    <c:forEach items="${requestScope.page.items}" var="student" varStatus="i">
+                    <c:forEach items="${requestScope.page.items}" var="Class" varStatus="i">
                     <tr class="${i.index%2==0?"odd":"even"}">
                         <td class="rank">${i.index+1}</td>
-                        <td class=" username"><a href="/user/Heart_Blue" target="_blank">${student.username}</a></td>
-                        <td class=" nickname">${student.nikename}</td>
-                        <td class=" school"><div>${student.classId}</div></td>
-                        <td class=" solved"><a href="/status/#un=Heart_Blue&amp;res=1" target="_blank">1</a></td>
-<%--                        <td class=" attempted"><a href="/status/#un=Heart_Blue&amp;res=0" target="_blank">1</a></td>--%>
+                        <td class=" username"><a href="/user/Heart_Blue" target="_blank">${Class.name}</a></td>
+                        <td class=" nickname">${Class.teacherId}</td>
+<%--                        <td class=" school"><div>${student.classId}</div></td>--%>
+                        <td class=" solved"><a href="" target="_blank">1</a></td>
+<%--                        <td class=" attempted"><a href="" target="_blank">1</a></td>--%>
                     </tr>
                     </c:forEach>
                 </table>

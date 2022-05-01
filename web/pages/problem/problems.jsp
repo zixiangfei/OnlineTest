@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Problems-OnlineTest</title>
+    <%@include file="/pages/common/head.jsp"%>
 </head>
 <body>
 

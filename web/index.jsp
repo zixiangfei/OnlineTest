@@ -5,18 +5,25 @@
   Time: 4:01 下午
   To change this template use File | Settings | File Templates.
 --%>
-<%@include file="/pages/common/header.jsp"%>
-<style type="text/css">
-    #index-title {
-        font-size: 4rem;
-        font-weight: 400;
-        padding-bottom: 1rem;
-    }
-    #index-intro {
-        padding-top: 4em;
-    }
+<html>
+<head>
+    <link type="text/css" rel="stylesheet" href="static/css/header.css" >
+    <%@include file="/pages/common/head.jsp"%>
+    <style type="text/css">
+        #index-title {
+            font-size: 4rem;
+            font-weight: 400;
+            padding-bottom: 1rem;
+        }
+        #index-intro {
+            padding-top: 4em;
+        }
 
-</style>
+    </style>
+    <title>OnlineTest</title>
+</head>
+<body>
+<%@include file="/pages/common/header.jsp"%>
 <div class="container" id="index-intro">
     <div id="fb-root"></div>
     <h1 id="index-title">OnlineTest</h1>

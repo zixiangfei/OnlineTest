@@ -1,5 +1,6 @@
 package com.onlineTest.service;
 
+import com.onlineTest.pojo.Page;
 import com.onlineTest.pojo.Teacher;
 
 public interface TeacherService {
@@ -9,4 +10,6 @@ public interface TeacherService {
     Boolean existsTeacherName(String name);
 
     void registTeacher(Teacher teacher);
+
+    Page<Teacher> page(Integer pageNo,Integer pageSize);
 }

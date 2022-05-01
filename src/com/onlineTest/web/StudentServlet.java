@@ -68,7 +68,7 @@ public class StudentServlet extends BaseServlet{
         List<Student> students = studentService.queryAllStudent();
         req.setAttribute("userList",students);
         req.setAttribute("type","student");
-        req.getRequestDispatcher("/pages/manager/manager.jsp").forward(req,resp);
+        req.getRequestDispatcher("/pages/manager/manager-student.jsp").forward(req,resp);
     }
 
     protected void pageStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -80,6 +80,6 @@ public class StudentServlet extends BaseServlet{
         page.setUrl("studentServlet?action=pageStudent");
         req.setAttribute("page",page);
 
-        req.getRequestDispatcher("/pages/manager/manager.jsp").forward(req,resp);
+        req.getRequestDispatcher("/pages/manager/manager-student.jsp").forward(req,resp);
     }
 }

@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: zhengluzhou
@@ -7,13 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>OnlineTest</title>
-    <%@include file="head.jsp"%>
-    <link type="text/css" rel="stylesheet" href="static/css/header.css" >
-</head>
-<body>
+<link type="text/css" rel="stylesheet" href="static/css/header.css" >
+
 <nav class="navbar navbar-dark bg-inverse" id="top-nav">
     <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
             data-target="#navbarResponsive"></button>
@@ -68,5 +62,3 @@
         </ul>
     </div>
 </nav>
-</body>
-</html>
