@@ -1,2 +1,5 @@
-package com.onlineTest.api;public class AdminApi {
+package com.onlineTest.api;
+
+public class AdminApi extends BaseApi {
+
 }

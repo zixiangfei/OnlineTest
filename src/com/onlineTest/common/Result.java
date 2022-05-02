@@ -8,4 +8,8 @@ public class Result {
     public static <T> BaseResponse<T> error(Integer code, String msg) {
         return new BaseResponse<>(code, msg, null);
     }
+
+    public static <T> BaseResponse<T> error(Integer code, String msg, T data) {
+        return new BaseResponse<>(code, msg, data);
+    }
 }
