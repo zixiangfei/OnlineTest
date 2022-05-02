@@ -82,5 +82,57 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>TestApi</servlet-name>
+        <servlet-class>com.onlineTest.api.TestApi</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TestApi</servlet-name>
+        <url-pattern>/api/v1/test</url-pattern>
+    </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AdminApi</servlet-name>
+        <servlet-class>com.onlineTest.api.AdminApi</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminApi</servlet-name>
+        <url-pattern>/api/v1/admin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ClassApi</servlet-name>
+        <servlet-class>com.onlineTest.api.ClassApi</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ClassApi</servlet-name>
+        <url-pattern>/api/v1/class</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>StudentApi</servlet-name>
+        <servlet-class>com.onlineTest.api.StudentApi</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StudentApi</servlet-name>
+        <url-pattern>/api/v1/student</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TeacherApi</servlet-name>
+        <servlet-class>com.onlineTest.api.TeacherApi</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TeacherApi</servlet-name>
+        <url-pattern>/api/v1/teacher</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SubjectApi</servlet-name>
+        <servlet-class>com.onlineTest.api.SubjectApi</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SubjectApi</servlet-name>
+        <url-pattern>/api/v1/subject</url-pattern>
+    </servlet-mapping>
 </web-app>
