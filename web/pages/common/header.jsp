@@ -18,7 +18,7 @@
         </a>
         <ul class="nav navbar-nav">
             <li class="nav-item" id="nav-problem">
-                <a class="nav-link" href="/problem" style="color:#b0ead8;">Problem</a>
+                <a class="nav-link" href="pages/problem/problems.jsp" style="color:#b0ead8;">问题列表</a>
             </li>
             <li class="nav-item" id="nav-status">
                 <a class="nav-link" href="/status" style="color:#b0ead8;">Status</a>

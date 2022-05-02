@@ -32,4 +32,20 @@ public class SubjectServiceImpl implements SubjectService {
 
         return page;
     }
+
+    @Override
+    public Boolean existsSubjectName(String name) {
+        Subject subject = subjectDao.queryByName(name);
+        if(subject==null) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    @Override
+    public void addSubject(Subject subject) {
+        subjectDao.saveSubject(subject);
+    }
 }

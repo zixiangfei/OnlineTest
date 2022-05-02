@@ -20,4 +20,17 @@ public class SubjectDaoImpl extends BaseDao implements SubjectDao {
         List<Subject> subjects = queryForList(Subject.class,sql,begin,pageSize);
         return subjects;
     }
+
+    @Override
+    public Integer saveSubject(Subject subject) {
+        String sql = "insert into subject(`name`) values(?)";
+        return update(sql,subject.getName());
+    }
+
+    @Override
+    public Subject queryByName(String name) {
+        String sql = "select * from subject where name = ?";
+        return queryForOne(Subject.class,sql,name);
+    }
 }
+

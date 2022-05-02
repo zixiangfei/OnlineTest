@@ -8,4 +8,8 @@ public interface SubjectDao {
     Integer queryForPageTotalCount();
 
     List<Subject> queryForPageItems(Integer begin,Integer pageSize);
+
+    Subject queryByName(String name);
+
+    Integer saveSubject(Subject subject);
 }

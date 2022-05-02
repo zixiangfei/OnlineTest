@@ -43,6 +43,7 @@ public class StudentServiceImpl implements StudentService {
         Integer totalCount = studentDao.queryTotalCount();
         page.setPageTotalCount(totalCount);
         Integer pageTotal = totalCount / pageSize + (totalCount%pageSize==0? 0 : 1);
+        System.out.println(pageTotal);
         page.setPageTotal(pageTotal);
         page.setPageNo(pageNo);
         page.setPageSize(pageSize);

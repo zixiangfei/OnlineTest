@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <ul class="pagination">
+
     <c:if test="${requestScope.page.pageNo<=1}">
         <li class="paginate_button page-item previous disabled" id="listUser_previous">
             <a href="#" aria-controls="listUser"  class="page-link">Previous</a>
@@ -49,26 +50,28 @@
 
     </c:choose>
 
-    <c:forEach begin="${begin}" end="${end}" var="i">
-        <c:if test="${i==requestScope.page.pageNo}">
-            <li class="paginate_button page-item active">
-                <a href="" aria-controls="listUser"  class="page-link">${i}</a>
-            </li>
-        </c:if>
-        <c:if test="${i!=requestScope.page.pageNo}">
-            <li class="paginate_button page-item ">
-                <a href="${requestScope.page.url}&pageNo=${i}" aria-controls="listUser"  class="page-link">${i}</a>
-            </li>
-        </c:if>
-    </c:forEach>
+    <c:if test="${begin<=end}">
+        <c:forEach begin="${begin}" end="${end}" var="i">
+            <c:if test="${i==requestScope.page.pageNo}">
+                <li class="paginate_button page-item active">
+                    <a aria-controls="listUser"  class="page-link">${i}</a>
+                </li>
+            </c:if>
+            <c:if test="${i!=requestScope.page.pageNo}">
+                <li class="paginate_button page-item ">
+                    <a href="${requestScope.page.url}&pageNo=${i}" aria-controls="listUser"  class="page-link">${i}</a>
+                </li>
+            </c:if>
+        </c:forEach>
+    </c:if>
 
-    <c:if test="${requestScope.page.pageNo==requestScope.page.pageTotal}">
-        <li class="paginate_button page-item next disabled" id="listUser_next">
+    <c:if test="${requestScope.page.pageNo>=requestScope.page.pageTotal}">
+        <li class="paginate_button page-item disabled" >
             <a href="#" aria-controls="listUser"  class="page-link">Next</a>
         </li>
     </c:if>
-    <c:if test="${requestScope.page.pageNo!=requestScope.page.pageTotal}">
-        <li class="paginate_button page-item next" id="listUser_next">
+    <c:if test="${requestScope.page.pageNo<requestScope.page.pageTotal}">
+        <li class="paginate_button page-item " >
             <a href="${requestScope.page.url}&pageNo=${requestScope.page.pageNo+1}" aria-controls="listUser"  class="page-link">Next</a>
         </li>
     </c:if>
