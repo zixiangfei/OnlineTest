@@ -1,5 +1,9 @@
 package com.onlineTest.api;
 
+import com.onlineTest.common.Result;
+import com.onlineTest.enums.ErrorCodeEnum;
+import com.onlineTest.utils.WebUtils;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,12 +22,11 @@ public abstract class BaseApi extends HttpServlet {
         resp.setContentType("application/json;charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
-        System.out.println(action);
         try {
             Method method = this.getClass().getDeclaredMethod(action, HttpServletRequest.class, HttpServletResponse.class);
-            System.out.println(method);
             method.invoke(this, req, resp);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            resp.getWriter().write(WebUtils.getJSONString(Result.error(ErrorCodeEnum.SYSTEM_ERROR.getCode(), ErrorCodeEnum.SYSTEM_ERROR.getMessage())));
             e.printStackTrace();
             throw new RuntimeException(e);
         }
