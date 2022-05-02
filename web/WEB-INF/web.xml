@@ -82,5 +82,12 @@
     </servlet-mapping>
 
 
-
+    <servlet>
+        <servlet-name>TestApi</servlet-name>
+        <servlet-class>com.onlineTest.api.TestApi</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TestApi</servlet-name>
+        <url-pattern>/api/v1/test</url-pattern>
+    </servlet-mapping>
 </web-app>

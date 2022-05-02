@@ -1,5 +1,6 @@
 package com.onlineTest.utils;
 
+import com.google.gson.Gson;
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.lang.reflect.InvocationTargetException;
@@ -32,5 +33,10 @@ public class WebUtils {
             e.printStackTrace();
         }
         return defaultValue;
+    }
+
+    public static String getJSONString(Object o) {
+        Gson gson = new Gson();
+        return gson.toJson(o);
     }
 }
