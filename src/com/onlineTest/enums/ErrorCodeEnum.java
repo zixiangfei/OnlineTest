@@ -8,7 +8,10 @@ public enum ErrorCodeEnum {
      * 用户错误
      */
     REQUEST_PARAMS_ERROR(40000, "请求参数错误"),
-
+    /**
+     * 权限不足
+     */
+    PERMISSION_ERROR(40003, "权限不足"),
     /**
      * 系统错误
      */
