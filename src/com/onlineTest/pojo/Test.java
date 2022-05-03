@@ -6,16 +6,23 @@ public class Test {
     private Integer id;
     private String name;
     private Integer time;
-    private Date endTime;
+    private Date startTime;
+    private String problems;
+    private Integer classId;
 
     public Test() {
     }
 
-    public Test(Integer id, String name, Integer time, Date endTime) {
-        this.id = id;
-        this.name = name;
-        this.time = time;
-        this.endTime = endTime;
+    @Override
+    public String toString() {
+        return "Test{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", time=" + time +
+                ", startTime=" + startTime +
+                ", problems='" + problems + '\'' +
+                ", classId=" + classId +
+                '}';
     }
 
     public Integer getId() {
@@ -42,21 +49,36 @@ public class Test {
         this.time = time;
     }
 
-    public Date getEndTime() {
-        return endTime;
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
-    @Override
-    public String toString() {
-        return "Test{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", time=" + time +
-                ", endTime=" + endTime +
-                '}';
+    public String getProblems() {
+        return problems;
+    }
+
+    public void setProblems(String problems) {
+        this.problems = problems;
+    }
+
+    public Integer getClassId() {
+        return classId;
+    }
+
+    public void setClassId(Integer classId) {
+        this.classId = classId;
+    }
+
+    public Test(Integer id, String name, Integer time, Date startTime, String problems, Integer classId) {
+        this.id = id;
+        this.name = name;
+        this.time = time;
+        this.startTime = startTime;
+        this.problems = problems;
+        this.classId = classId;
     }
 }

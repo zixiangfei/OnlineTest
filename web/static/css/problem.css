@@ -455,9 +455,6 @@ div.table-responsive>div.dataTables_wrapper>div.row>div[class^=col-]:last-child 
     float:left;
     text-align:center
 }
-#listProblem_wrapper ul.pagination>li:nth-last-child(2) {
-    display:none
-}
 #listProblem_wrapper .dataTables_length {
     float:right
 }

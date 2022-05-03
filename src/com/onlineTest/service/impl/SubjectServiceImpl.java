@@ -48,4 +48,9 @@ public class SubjectServiceImpl implements SubjectService {
     public void addSubject(Subject subject) {
         subjectDao.saveSubject(subject);
     }
+
+    @Override
+    public List<Subject> allSubject() {
+        return subjectDao.queryAllSubject();
+    }
 }

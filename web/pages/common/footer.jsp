@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<head>
 	<style type="text/css">
 		.body-footer {
 			clear:both;
@@ -94,7 +93,6 @@
 
 		})
 	</script>
-</head>
 <div class="body-footer">
 	All Copyright Reserved © 2022<br/>
 	Server Time: <span id="servertime"></span>

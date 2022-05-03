@@ -12,4 +12,6 @@ public interface SubjectDao {
     Subject queryByName(String name);
 
     Integer saveSubject(Subject subject);
+
+    List<Subject> queryAllSubject();
 }

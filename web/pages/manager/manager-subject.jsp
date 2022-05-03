@@ -29,14 +29,12 @@
             })
 
             $("#insertSubjectOpen").click(function () {
-              //  alert(11);
                 $("#insertSubjectModal").addClass("in");
                 $("#insertSubjectModal").attr("style","display:block;");
                 $("#insertSubjectModal").attr("aria-hidden","true");
             })
 
             $("#btn-insert").click(function () {
-              //  alert(1111);
                 var username = $("#insert-name").val();
                 console.log(username);
                 $.getJSON("${pageScope.basePath}subjectServlet","action=ajaxExistsSubjectName&name="+username,function (data) {
@@ -45,9 +43,6 @@
                         $("#insert-alert").attr("style","display:block");
                         $("#insert-alert").innerHTML="已存在该课程";
                     }
-                    // else {
-                    //     $("#add-form").submit();
-                    // }
                 })
             })
 
@@ -59,6 +54,9 @@
                     if(data.existsSubjectName) {
                         $("#insert-alert").attr("style","display:block");
                         $("#insert-alert").text("已存在该课程");
+                    }
+                    else {
+                        $("#insert-alert").attr("style","display:none");
                     }
                 })
             })

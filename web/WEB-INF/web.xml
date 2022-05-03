@@ -81,6 +81,16 @@
         <url-pattern>/subjectServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ProblemServlet</servlet-name>
+        <servlet-class>com.onlineTest.web.ProblemServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProblemServlet</servlet-name>
+        <url-pattern>/problemServlet</url-pattern>
+    </servlet-mapping>
+
+
 
     <servlet>
         <servlet-name>TestApi</servlet-name>

@@ -5,25 +5,13 @@ public class Problem {
     private String describe;
     private String answer;
     private Integer subjectId;
-    private Integer testId;
-    private String answerAnalysis;
+    private String analysis;
     private String options;
     private Integer correct;
     private Integer wrong;
+    private String type;
 
     public Problem() {
-    }
-
-    public Problem(Integer id, String describe, String answer, Integer subjectId, Integer testId, String answerAnalysis, String options, Integer correct, Integer wrong) {
-        this.id = id;
-        this.describe = describe;
-        this.answer = answer;
-        this.subjectId = subjectId;
-        this.testId = testId;
-        this.answerAnalysis = answerAnalysis;
-        this.options = options;
-        this.correct = correct;
-        this.wrong = wrong;
     }
 
     public Integer getId() {
@@ -58,22 +46,6 @@ public class Problem {
         this.subjectId = subjectId;
     }
 
-    public Integer getTestId() {
-        return testId;
-    }
-
-    public void setTestId(Integer testId) {
-        this.testId = testId;
-    }
-
-    public String getAnswerAnalysis() {
-        return answerAnalysis;
-    }
-
-    public void setAnswerAnalysis(String answerAnalysis) {
-        this.answerAnalysis = answerAnalysis;
-    }
-
     public String getOptions() {
         return options;
     }
@@ -98,6 +70,34 @@ public class Problem {
         this.wrong = wrong;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getAnalysis() {
+        return analysis;
+    }
+
+    public void setAnalysis(String analysis) {
+        this.analysis = analysis;
+    }
+
+    public Problem(Integer id, String describe, String answer, Integer subjectId, String analysis, String options, Integer correct, Integer wrong, String type) {
+        this.id = id;
+        this.describe = describe;
+        this.answer = answer;
+        this.subjectId = subjectId;
+        this.analysis = analysis;
+        this.options = options;
+        this.correct = correct;
+        this.wrong = wrong;
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "Problem{" +
@@ -105,11 +105,11 @@ public class Problem {
                 ", describe='" + describe + '\'' +
                 ", answer='" + answer + '\'' +
                 ", subjectId=" + subjectId +
-                ", testId=" + testId +
-                ", answerAnalysis='" + answerAnalysis + '\'' +
+                ", analysis='" + analysis + '\'' +
                 ", options='" + options + '\'' +
                 ", correct=" + correct +
                 ", wrong=" + wrong +
+                ", type='" + type + '\'' +
                 '}';
     }
 }

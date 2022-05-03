@@ -18,19 +18,19 @@
         </a>
         <ul class="nav navbar-nav">
             <li class="nav-item" id="nav-problem">
-                <a class="nav-link" href="pages/problem/problems.jsp" style="color:#b0ead8;">问题列表</a>
+                <a class="nav-link" href="problemServlet?action=pageProblem" style="color:#b0ead8;">问题列表</a>
             </li>
             <li class="nav-item" id="nav-status">
                 <a class="nav-link" href="/status" style="color:#b0ead8;">Status</a>
             </li>
             <li class="nav-item" id="nav-contest">
-                <a class="nav-link" href="/contest" style="color:#b0ead8;">Contest</a>
+                <a class="nav-link" href="/contest" style="color:#b0ead8;">测验列表</a>
             </li>
-            <c:if test="${sessionScope.type == 'admin'}">
+<%--            <c:if test="${sessionScope.type == 'admin'}">--%>
                 <li class="nav-item" id="nav-user">
                     <a class="nav-link" href="studentServlet?action=pageStudent" style="color:#b0ead8;" >用户管理</a>
                 </li>
-            </c:if>
+<%--            </c:if>--%>
             <li class="nav-item" id="nav-group">
                 <a class="nav-link" href="/group" style="color:#b0ead8;">Group</a>
             </li>
