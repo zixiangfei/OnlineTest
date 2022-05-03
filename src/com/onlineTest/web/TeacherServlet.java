@@ -1,5 +1,6 @@
 package com.onlineTest.web;
 
+import com.google.gson.Gson;
 import com.onlineTest.pojo.Page;
 import com.onlineTest.pojo.Teacher;
 import com.onlineTest.service.TeacherService;
@@ -10,6 +11,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
 
@@ -71,5 +75,14 @@ public class TeacherServlet extends BaseServlet{
         req.setAttribute("page",page);
         System.out.println(page);
         req.getRequestDispatcher("/pages/manager/manager-teacher.jsp").forward(req,resp);
+    }
+
+
+    protected void ajaxAllTeacher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Teacher> teachers = teacherService.allTeacher();
+        Map<String,Object> resultMap = new HashMap<String, Object>();
+        resultMap.put("teachers",teachers);
+        Gson gson = new Gson();
+        resp.getWriter().write(gson.toJson(resultMap));
     }
 }

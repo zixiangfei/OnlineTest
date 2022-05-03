@@ -15,4 +15,6 @@ public interface TeacherDao {
     Integer queryForPageTotalCount();
 
     List<Teacher> queryForPageItems(Integer begin,Integer pageSize);
+
+    List<Teacher> queryAllTeacher();
 }

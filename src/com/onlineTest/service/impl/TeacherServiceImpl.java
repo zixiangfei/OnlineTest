@@ -6,6 +6,8 @@ import com.onlineTest.pojo.Page;
 import com.onlineTest.pojo.Teacher;
 import com.onlineTest.service.TeacherService;
 
+import java.util.List;
+
 public class TeacherServiceImpl implements TeacherService {
 
     TeacherDao teacherDao = new TeacherDaoImpl();
@@ -44,4 +46,12 @@ public class TeacherServiceImpl implements TeacherService {
         page.setItems(teacherDao.queryForPageItems(begin,pageSize));
         return page;
     }
+
+    @Override
+    public List<Teacher> allTeacher() {
+        List<Teacher> teachers = teacherDao.queryAllTeacher();
+        return teachers;
+    }
+
+
 }

@@ -43,6 +43,9 @@
                         $("#insert-alert").attr("style","display:block");
                         $("#insert-alert").innerHTML="已存在该课程";
                     }
+                    else {
+                        $("#add-form").submit();
+                    }
                 })
             })
 

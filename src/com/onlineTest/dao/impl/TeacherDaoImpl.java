@@ -38,4 +38,10 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
         List<Teacher> teachers = queryForList(Teacher.class,sql,begin,pageSize);
         return teachers;
     }
+
+    @Override
+    public List<Teacher> queryAllTeacher() {
+        String sql = "select * from teacher";
+        return queryForList(Teacher.class,sql);
+    }
 }

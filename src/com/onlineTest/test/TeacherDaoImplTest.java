@@ -22,4 +22,9 @@ public class TeacherDaoImplTest {
     @Test
     public void saveTeacher() {
     }
+
+    @Test
+    public void queryAllTeacher() {
+        System.out.println(teacherDao.queryAllTeacher());
+    }
 }

@@ -31,4 +31,20 @@ public class ClassServiceImpl implements ClassService {
 
         return page;
     }
+
+    @Override
+    public boolean existsClassName(String name) {
+        Class classes = classDao.queryByName(name);
+        if(classes==null) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    @Override
+    public void addClass(Class aClass) {
+        classDao.saveClass(aClass);
+    }
 }

@@ -33,6 +33,29 @@
                     }
                 })
             })
+
+                $.getJSON("${pageScope.basePath}subjectServlet","action=ajaxAllSubject",function (data) {
+                    $("#searchSelect").empty();
+                    for (let i in data.subjects) {
+                        var value = data.subjects[i].name;
+                        var subjectId = data.subjects[i].id;
+                        $("#searchSelect").append("<option value="+subjectId+">"+value+"</option>")
+                    }
+
+                    $subject = $(".subject");
+                    console.log($subject)
+                    $subject.each(function () {
+                        for (let i in data.subjects) {
+                            var value = data.subjects[i].name;
+                            var subjectId = data.subjects[i].id+"";
+                            console.log(this.innerText);
+                            if(subjectId===this.innerText) {
+                                this.innerText=value;
+                            }
+                        }
+                    })
+                })
+
         })
     </script>
 </head>
@@ -80,13 +103,9 @@
                        cellspacing="0">
                     <thead>
                     <tr>
-                        <th class="oj sorting_disabled" rowspan="1" colspan="1" aria-label="OJAll51Nod黑暗爆炸计蒜客洛谷">科目<br>
-                            <select name="OJId" id="OJId" class="custom-select" data-width="auto">
-                                <option value="All">All</option>
-                                <option value="51Nod">51Nod</option>
-                                <option value="黑暗爆炸">黑暗爆炸</option>
-                                <option value="计蒜客">计蒜客</option>
-                                <option value="洛谷">洛谷</option>
+                        <th class="oj sorting_disabled" rowspan="1" colspan="1" >科目<br>
+                            <select name="OJId" id="searchSelect" class="custom-select" data-width="auto">
+                                <option>请选择科目</option>
                             </select>
                         </th>
                         <th class="prob_num sorting" tabindex="0" aria-controls="listProblem" rowspan="1" colspan="1"
@@ -99,9 +118,13 @@
                             标题<br>
                             <input type="text" id="title" name="title" class="search_text" style="width:95%">
                         </th>
-                        <th class="source hidden-md-down sorting_disabled" rowspan="1" colspan="1" aria-label="Source">
+                        <th class="oj hidden-md-down sorting_disabled" rowspan="1" colspan="1" aria-label="Source">
                             类型<br>
-                            <input type="text" id="source" name="source" class="search_text" style="width:95%">
+                            <select name="OJId" id="OJId" class="custom-select" data-width="auto">
+                                <option value="单选">单选</option>
+                                <option value="多选">多选</option>
+                                <option value="判断">判断</option>
+                            </select>
                         </th>
                         <th class="solved_users sorting" data-toggle="tooltip" title="" tabindex="0"
                             aria-controls="listProblem" rowspan="1" colspan="1"
@@ -119,20 +142,20 @@
                     <tbody>
                     <c:forEach items="${requestScope.page.items}" var="problem">
                         <tr class="odd">
-                            <td class=" oj">${problem.subjectId}</td>
+                            <td class="oj subject">${problem.subjectId}</td>
                             <td class=" prob_num">
                                 <div><a href="/problem/51Nod-1619/origin" target="_blank" title="" data-toggle="tooltip"
                                         data-original-title="1619">${problem.id}</a></div>
                             </td>
                             <td class=" title">
-                                <div><a href="/problem/51Nod-1619">
+                                <div>
                                     <c:if test="${fn:length(problem.describe)>=20}">
                                         ${fn:substring(problem.describe,0,20)}...
                                     </c:if>
                                     <c:if test="${fn:length(problem.describe)<20}">
                                         ${problem.describe}
                                     </c:if>
-                                </a></div>
+                                </div>
                             </td>
                             <td class=" source hidden-md-down">
                                 <div title="" data-toggle="tooltip" data-placement="top"
