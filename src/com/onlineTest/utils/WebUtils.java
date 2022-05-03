@@ -3,6 +3,8 @@ package com.onlineTest.utils;
 import com.google.gson.Gson;
 import org.apache.commons.beanutils.BeanUtils;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
@@ -38,5 +40,9 @@ public class WebUtils {
     public static String getJSONString(Object o) {
         Gson gson = new Gson();
         return gson.toJson(o);
+    }
+
+    public static void writeJSONString(HttpServletResponse resp, Object o) throws IOException {
+        resp.getWriter().write(getJSONString(o));
     }
 }
