@@ -17,4 +17,6 @@ public interface TeacherDao {
     List<Teacher> queryForPageItems(Integer begin,Integer pageSize);
 
     List<Teacher> queryAllTeacher();
+
+    Teacher queryById(Integer teacherId);
 }

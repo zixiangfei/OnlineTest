@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<link  rel="stylesheet" href="static/font-awesome-4.7.0/css/font-awesome.min.css">
 <link type="text/css" rel="stylesheet" href="static/css/header.css" >
 
 <nav class="navbar navbar-dark bg-inverse" id="top-nav">
@@ -32,7 +33,7 @@
                 </li>
 <%--            </c:if>--%>
             <li class="nav-item" id="nav-group">
-                <a class="nav-link" href="/group" style="color:#b0ead8;">Group</a>
+                <a class="nav-link" href="classServlet?action=showClassList" style="color:#b0ead8;">Group</a>
             </li>
             <li class="nav-item" id="nav-comment">
                 <a class="nav-link" href="/comment" style="color:#b0ead8;">Forum</a>

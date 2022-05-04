@@ -16,4 +16,6 @@ public interface TeacherService {
     Page<Teacher> page(Integer pageNo,Integer pageSize);
 
     List<Teacher> allTeacher();
+
+    Teacher getTeacherById(Integer teacherId);
 }

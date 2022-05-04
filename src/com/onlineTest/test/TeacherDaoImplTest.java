@@ -27,4 +27,9 @@ public class TeacherDaoImplTest {
     public void queryAllTeacher() {
         System.out.println(teacherDao.queryAllTeacher());
     }
+
+    @Test
+    public void queryById() {
+        System.out.println(teacherDao.queryById(1));
+    }
 }

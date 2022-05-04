@@ -47,4 +47,14 @@ public class ClassServiceImpl implements ClassService {
     public void addClass(Class aClass) {
         classDao.saveClass(aClass);
     }
+
+    @Override
+    public List<Class> classList() {
+        return classDao.queryAllClass();
+    }
+
+    @Override
+    public Class getClassById(Integer classId) {
+        return classDao.queryById(classId);
+    }
 }

@@ -1,12 +1,16 @@
 package com.onlineTest.web;
 
 import com.google.gson.Gson;
+import com.onlineTest.pojo.*;
 import com.onlineTest.pojo.Class;
-import com.onlineTest.pojo.Page;
-import com.onlineTest.pojo.Subject;
-import com.onlineTest.pojo.Teacher;
 import com.onlineTest.service.ClassService;
+import com.onlineTest.service.StudentService;
+import com.onlineTest.service.TeacherService;
+import com.onlineTest.service.TestService;
 import com.onlineTest.service.impl.ClassServiceImpl;
+import com.onlineTest.service.impl.StudentServiceImpl;
+import com.onlineTest.service.impl.TeacherServiceImpl;
+import com.onlineTest.service.impl.TestServiceImpl;
 import com.onlineTest.utils.WebUtils;
 
 import javax.servlet.ServletException;
@@ -14,11 +18,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class ClassServlet extends BaseServlet{
 
     ClassService classService = new ClassServiceImpl();
+    TeacherService teacherService = new TeacherServiceImpl();
+    StudentService studentService = new StudentServiceImpl();
+    TestService testService = new TestServiceImpl();
 
     protected void pageClass(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer pageNo = WebUtils.parseInt(req.getParameter("pageNo"),1);
@@ -39,6 +48,9 @@ public class ClassServlet extends BaseServlet{
         Integer pageNo = WebUtils.parseInt(req.getParameter("pageNo"),1);
         Integer pageSize = WebUtils.parseInt(req.getParameter("pageSize"), Page.page_size);
 
+        Random r = new Random();
+        String image="https://himg.bdimg.com/sys/portrait/hotitem/wildkid/" + r.nextInt(67);
+
         if(classService.existsClassName(name)) {
             Page<Class> page = classService.page(pageNo,pageSize);
             page.setType("class");
@@ -49,7 +61,7 @@ public class ClassServlet extends BaseServlet{
         }
         else {
             Page<Class> page = classService.page(pageNo,pageSize);
-            classService.addClass(new Class(name,null,teacherId));
+            classService.addClass(new Class(name,null,teacherId,image,0));
             page.setType("class");
             page.setUrl("classServlet?action=pageClass");
             req.setAttribute("page",page);
@@ -64,5 +76,27 @@ public class ClassServlet extends BaseServlet{
         resultMap.put("existsClass",existsClass);
         Gson gson = new Gson();
         resp.getWriter().write(gson.toJson(resultMap));
+    }
+
+    protected void showClassList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Class> classes = classService.classList();
+        req.setAttribute("classes",classes);
+        req.getRequestDispatcher("/pages/classes/class-major.jsp").forward(req,resp);
+    }
+
+    protected void showClassDetails(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Integer classId = WebUtils.parseInt(req.getParameter("classId"),1);
+
+        Class curClass = classService.getClassById(classId);
+        Teacher curTeacher =  teacherService.getTeacherById(curClass.getTeacherId());
+        List<Student> studentList = studentService.getStudentListByClassId(classId);
+        List<Test> testList = testService.getTestListByClassId(classId);
+
+        req.setAttribute("curClass",curClass);
+        req.setAttribute("curTeacher",curTeacher);
+        req.setAttribute("studentList",studentList);
+        req.setAttribute("testList",testList);
+
+        req.getRequestDispatcher("/pages/classes/class-details.jsp").forward(req,resp);
     }
 }

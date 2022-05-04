@@ -16,4 +16,6 @@ public interface StudentService {
     List<Student> queryAllStudent();
 
     Page<Student> page(Integer pageNo,Integer pageSize);
+
+    List<Student> getStudentListByClassId(Integer classId);
 }

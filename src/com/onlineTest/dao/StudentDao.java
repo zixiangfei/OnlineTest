@@ -17,4 +17,6 @@ public interface StudentDao {
     public Integer queryTotalCount();
 
     public List<Student> queryForPageItems(Integer begin,Integer pageSize);
+
+    List<Student> queryByClassId(Integer classId);
 }

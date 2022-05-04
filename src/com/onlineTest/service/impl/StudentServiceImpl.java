@@ -52,4 +52,9 @@ public class StudentServiceImpl implements StudentService {
         page.setItems(students);
         return page;
     }
+
+    @Override
+    public List<Student> getStudentListByClassId(Integer classId) {
+        return studentDao.queryByClassId(classId);
+    }
 }

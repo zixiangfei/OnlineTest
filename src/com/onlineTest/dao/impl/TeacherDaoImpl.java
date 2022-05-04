@@ -44,4 +44,10 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
         String sql = "select * from teacher";
         return queryForList(Teacher.class,sql);
     }
+
+    @Override
+    public Teacher queryById(Integer teacherId) {
+        String sql = "select * from teacher where id = ?";
+        return queryForOne(Teacher.class,sql,teacherId);
+    }
 }

@@ -13,4 +13,8 @@ public interface ClassDao {
     Class queryByName(String name);
 
     Integer saveClass(Class aClass);
+
+    List<Class> queryAllClass();
+
+    Class queryById(Integer classId);
 }
