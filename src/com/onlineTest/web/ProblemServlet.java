@@ -1,5 +1,6 @@
 package com.onlineTest.web;
 
+import com.google.gson.Gson;
 import com.google.gson.internal.$Gson$Preconditions;
 import com.onlineTest.pojo.Page;
 import com.onlineTest.pojo.Problem;
@@ -11,6 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProblemServlet extends BaseServlet{
 
@@ -39,7 +42,7 @@ public class ProblemServlet extends BaseServlet{
         String optionC = req.getParameter("optionC");
         String optionD = req.getParameter("optionD");
         String options = optionA + "," + optionB + "," + optionC + "," +optionD;
-        String answer = null;
+        String answer = "";
         if("单选".equals(type)) {
             answer = req.getParameter("single");
         }
@@ -67,5 +70,25 @@ public class ProblemServlet extends BaseServlet{
         problemService.saveProblem(problem);
 
         resp.sendRedirect(req.getContextPath()+"/problemServlet?action=pageProblem");
+    }
+
+    protected void showProblemDescribe(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Integer problemId = WebUtils.parseInt(req.getParameter("problemId"),0);
+        Problem problem = problemService.getProblemById(problemId);
+        req.setAttribute("problem",problem);
+        String[] option = problem.getOptions().split(",");
+        req.setAttribute("option",option);
+        req.getRequestDispatcher("/pages/problem/problem_describe.jsp");
+    }
+
+    protected void ajaxShowProblemDescribe(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Integer problemId = WebUtils.parseInt(req.getParameter("problemId"),0);
+        Problem problem = problemService.getProblemById(problemId);
+        String[] option = problem.getOptions().split(",");
+        Map<String,Object> resultMap = new HashMap<>();
+        resultMap.put("selectProblem",problem);
+        resultMap.put("selectOptions",option);
+        Gson gson = new Gson();
+        resp.getWriter().write(gson.toJson(resultMap));
     }
 }

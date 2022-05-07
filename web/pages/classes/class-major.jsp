@@ -55,7 +55,7 @@
                                             <td style="width: 30%">
                                                 <div class="card left">
                                                     <div class="logo">
-                                                        <a href="classServlet?action=showClassDetails&classId=${classes.id}">
+                                                        <a href="classServlet?action=showClassDetails&classId=${classes.id}&type=0">
                                                             <img class="card-img-top" src="${classes.image}"
                                                                  alt="Group logo">
                                                         </a>
@@ -68,7 +68,7 @@
                                             </td>
                                             <td>
                                                 <div class="card right">
-                                                    <div class="name single"><a href="classServlet?action=showClassDetails&classId=${classes.id}">${classes.name}</a>
+                                                    <div class="name single"><a href="classServlet?action=showClassDetails&classId=${classes.id}&type=0">${classes.name}</a>
                                                     </div>
                                                     <div class="brief"></div>
                                                     <div class="single">

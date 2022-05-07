@@ -10,6 +10,20 @@
 <head>
     <title>class-details</title>
     <%@include file="/pages/common/head.jsp"%>
+    <script type="text/javascript" >
+        $(function () {
+            $("#btn-create").click(function () {
+                $("body").addClass("modal-open");
+                $("#createContestModal").addClass("in");
+                $("#createContestModal").attr("style","display:block;");
+                $("#createContestModal").attr("aria-hidden","true");
+                $("#createContestBackground").addClass("in");
+                $("#createContestBackground").attr("style","display:block;");
+
+            })
+
+        })
+    </script>
 </head>
 <body>
 <%@include file="/pages/common/header.jsp"%>
@@ -81,14 +95,14 @@
                                 <tr>
                                     <td class="title">
                                         <div>
-                                            <a href="/contest/491636" target="_blank" data-toggle="tooltip" title="${curTest.name}">${curTest.name}</a>
+                                            <a href="testServlet?action=showTestDetails&testId=${curTest.id}" target="_blank" data-toggle="tooltip" title="${curTest.name}">${curTest.name}</a>
                                         </div>
                                     </td>
                                     <td class="date">
-                                        <div class="localizedTime Ended" data-time="1651384800000" rendered="true">
-                                            <span class="relative">2 days ago</span><span class="absolute">${curTest.startTime}</span></div>
+                                        <div class="localizedTime Ended" >
+                                            <span class="relative">${curTest.beginTime}</span></div>
                                     </td>
-                                    <td>${curTest.time}</td>
+                                    <td>${curTest.length}</td>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -141,6 +155,7 @@
         </div>
     </div>
 </div>
+<%@include file="/pages/contest/create_contest.jsp"%>
 <%@include file="/pages/common/footer.jsp"%>
 </body>
 </html>

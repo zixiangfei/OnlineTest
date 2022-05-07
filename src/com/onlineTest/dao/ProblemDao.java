@@ -11,4 +11,6 @@ public interface ProblemDao {
     List<Problem> queryForPageItems(Integer begin,Integer pageSize);
 
     Integer saveProblem(Problem problem);
+
+    Problem queryById(Integer problemId);
 }

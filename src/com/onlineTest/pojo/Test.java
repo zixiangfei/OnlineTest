@@ -1,14 +1,55 @@
 package com.onlineTest.pojo;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Test {
     private Integer id;
     private String name;
     private Integer time;
-    private Date startTime;
+    private Timestamp startTime;
     private String problems;
     private Integer classId;
+    private String length;
+    private Timestamp endTime;
+    private String beginTime;
+    private String endTimeStr;
+
+    public String getBeginTime() {
+        return startTime.toString();
+    }
+
+    public String getEndTimeStr() {
+        return getEndTime().toString();
+    }
+
+    public void setEndTimeStr(String endTimeStr) {
+        this.endTimeStr = endTimeStr;
+    }
+
+    public void setBeginTime(String beginTime) {
+        this.beginTime = beginTime;
+    }
+
+    public Timestamp getEndTime() {
+        return new Timestamp(startTime.getTime()+time);
+    }
+
+    public void setEndTime(Timestamp endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getLength() {
+        int curTime = time / 1000;
+        int hour = curTime/(60*60);
+        int mins = curTime%3600/60;
+        int secs = curTime%60;
+        return ""+hour+":"+mins+":"+secs;
+    }
+
+    public void setLength(String length) {
+        this.length = length;
+    }
 
     public Test() {
     }
@@ -22,7 +63,26 @@ public class Test {
                 ", startTime=" + startTime +
                 ", problems='" + problems + '\'' +
                 ", classId=" + classId +
+                ", length='" + length + '\'' +
+                ", endTime=" + endTime +
                 '}';
+    }
+
+    public Timestamp getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Timestamp startTime) {
+        this.startTime = startTime;
+    }
+
+    public Test(Integer id, String name, Integer time, Timestamp startTime, String problems, Integer classId) {
+        this.id = id;
+        this.name = name;
+        this.time = time;
+        this.startTime = startTime;
+        this.problems = problems;
+        this.classId = classId;
     }
 
     public Integer getId() {
@@ -49,14 +109,6 @@ public class Test {
         this.time = time;
     }
 
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
     public String getProblems() {
         return problems;
     }
@@ -73,12 +125,4 @@ public class Test {
         this.classId = classId;
     }
 
-    public Test(Integer id, String name, Integer time, Date startTime, String problems, Integer classId) {
-        this.id = id;
-        this.name = name;
-        this.time = time;
-        this.startTime = startTime;
-        this.problems = problems;
-        this.classId = classId;
-    }
 }

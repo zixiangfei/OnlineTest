@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface TestService {
     List<Test> getTestListByClassId(Integer classId);
+
+    void addNewContest(Test test);
+
+    Test getTestById(Integer testId);
 }

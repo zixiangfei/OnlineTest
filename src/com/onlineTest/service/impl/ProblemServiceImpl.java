@@ -34,4 +34,9 @@ public class ProblemServiceImpl implements ProblemService {
     public void saveProblem(Problem problem) {
         problemDao.saveProblem(problem);
     }
+
+    @Override
+    public Problem getProblemById(Integer problemId) {
+        return problemDao.queryById(problemId);
+    }
 }

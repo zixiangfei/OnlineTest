@@ -24,4 +24,10 @@ public class ProblemDaoImpl extends BaseDao implements ProblemDao {
         String sql = "insert into problems(`describe`,`answer`,`subjectId`,`analysis`,`options`,`correct`,`wrong`,`type`) values(?, ?, ?, ?, ?, ?, ?, ?)";
         return update(sql,problem.getDescribe(),problem.getAnswer(),problem.getSubjectId(),problem.getAnalysis(),problem.getOptions(),problem.getCorrect(),problem.getWrong(),problem.getType());
     }
+
+    @Override
+    public Problem queryById(Integer problemId) {
+        String sql = "select * from problems where id = ?";
+        return queryForOne(Problem.class,sql,problemId);
+    }
 }

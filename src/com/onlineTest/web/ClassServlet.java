@@ -86,17 +86,27 @@ public class ClassServlet extends BaseServlet{
 
     protected void showClassDetails(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer classId = WebUtils.parseInt(req.getParameter("classId"),1);
-
+        Integer type = WebUtils.parseInt(req.getParameter("type"),0);
+        System.out.println(classId);
         Class curClass = classService.getClassById(classId);
+        System.out.println(curClass);
         Teacher curTeacher =  teacherService.getTeacherById(curClass.getTeacherId());
         List<Student> studentList = studentService.getStudentListByClassId(classId);
         List<Test> testList = testService.getTestListByClassId(classId);
+
 
         req.setAttribute("curClass",curClass);
         req.setAttribute("curTeacher",curTeacher);
         req.setAttribute("studentList",studentList);
         req.setAttribute("testList",testList);
 
-        req.getRequestDispatcher("/pages/classes/class-details.jsp").forward(req,resp);
+        if(type.equals(new Integer(0))) {
+            req.getRequestDispatcher("/pages/classes/class-details.jsp").forward(req,resp);
+
+        }
+        else {
+            req.getRequestDispatcher("/pages/classes/class-open.jsp").forward(req,resp);
+
+        }
     }
 }

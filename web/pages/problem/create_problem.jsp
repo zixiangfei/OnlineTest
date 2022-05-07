@@ -18,7 +18,6 @@
             $("#createProblemBackground").removeClass("in");
             $("#createProblemBackground").attr("style","display:none;");
         })
-
         $("#createProblemCancel").click(function () {
             $("#createProblemModal").removeClass("in");
             $("body").removeClass("modal-open");

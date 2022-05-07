@@ -14,6 +14,18 @@
 
     <script type="text/javascript">
         $(function () {
+            // let $btnModify = $("[name='modify']");
+            // console.log($btnModify);
+            // for(var i=0;i<$btnModify.length;++i) {
+            //     var curBtn = $btnModify[i];
+            //     console.log(curBtn)
+            //     console.log(curBtn)
+            // }
+
+            $("[name='modify']").click(function () {
+                console.log("test");
+                console.log(this.id)
+            })
 
             $("#createProblemBtn").click(function () {
                 $("body").addClass("modal-open");
@@ -98,6 +110,9 @@
                                class="btn btn-secondary btn-md"
                                id="createProblemBtn" value="添加题目" style="">
                     </div>
+                    <c:if test="${not empty sessionScope.addMsg}" >
+                        <div class="alert alert-success" style="text-align: right">${sessionScope.addMsg}</div>
+                    </c:if>
                 </div>
                 <table id="listProblem" class="table table-striped table-bordered dataTable no-footer" width="100%"
                        cellspacing="0">
@@ -130,12 +145,12 @@
                             aria-controls="listProblem" rowspan="1" colspan="1"
                             aria-label="Solved: activate to sort column descending"
                             data-original-title="Sort by solved users">
-                            正确
+                            编辑
                         </th>
                         <th class="date sorting sorting_desc" data-toggle="tooltip" title="" tabindex="0"
                             aria-controls="listProblem" rowspan="1" colspan="1" aria-sort="descending"
                             aria-label="Update Time: activate to sort column ascending"
-                            data-original-title="Sort by update time">错误
+                            data-original-title="Sort by update time">添加到测验
                         </th>
                     </tr>
                     </thead>
@@ -162,29 +177,18 @@
                                      data-original-title="System Message">${problem.type}
                                 </div>
                             </td>
-                            <td class=" solved_users"><i class="fa fa-user"></i>${problem.correct}</td>
+                            <td class="date" ><span value="${problem.id}" name="modify" style="color:#749fd5; cursor: pointer" id="${problem.id}">修改</span></td>
                             <td class="date sorting_1"><i class="fa fa-check text-success"></i>
-                                <div class="localizedTime" data-time="1651387901000" rendered="true">
-                                    <span class="relative">${problem.wrong}</span>
+                                <a href="testServlet?action=addProblemToContest&problemId=${problem.id}">
+                                    <div class="localizedTime" data-time="1651387901000" rendered="true">
+                                        <span class="relative">添加</span>
+                                    </div>
+                                </a>
                             </td>
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
-                <div class="">
-                    <div class="dataTables_length" id="listProblem_length">
-                        <label>Show
-                            <select name="listProblem_length" aria-controls="listProblem"
-                                    class="custom-select custom-select-sm form-control form-control-sm">
-                                <option value="10">10</option>
-                                <option value="20">20</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                            entries</label>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
