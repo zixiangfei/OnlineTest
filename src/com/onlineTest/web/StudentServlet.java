@@ -32,6 +32,7 @@ public class StudentServlet extends BaseServlet{
         else {
             req.getSession().setAttribute("username",username);
             req.getSession().setAttribute("type","student");
+            req.getSession().setAttribute("student",student);
             req.getRequestDispatcher("/index.jsp").forward(req,resp);
         }
     }

@@ -18,4 +18,6 @@ public interface StudentService {
     Page<Student> page(Integer pageNo,Integer pageSize);
 
     List<Student> getStudentListByClassId(Integer classId);
+
+    Student getStudentById(Integer studentId);
 }

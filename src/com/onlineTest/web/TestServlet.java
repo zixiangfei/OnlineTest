@@ -26,6 +26,7 @@ public class TestServlet  extends BaseServlet{
     SubjectService subjectService = new SubjectServiceImpl();
     TestService testService = new TestServiceImpl();
     RecordService recordService = new RecordServiceImpl();
+    RankService rankService = new RankServiceImpl();
 
     protected void addProblemToContest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer problemId = WebUtils.parseInt(req.getParameter("problemId"),0);
@@ -195,6 +196,7 @@ public class TestServlet  extends BaseServlet{
             }
             testProblemStatuseList.add(new ProblemStatus(problem.getId(),correct,total));
         }
+        List<RankItem> rankItemList = rankService.getRankListByTestId(testId);
         req.setAttribute("testProblemStatusList",testProblemStatuseList);
         req.setAttribute("testRecordList",recordList);
         req.setAttribute("curTest",test);

@@ -11,4 +11,16 @@ public class RecordDaoImpl extends BaseDao implements RecordDao {
         String sql = "select * from records where testId = ?";
         return queryForList(Record.class,sql,testId);
     }
+
+    @Override
+    public void saveRecord(Record record) {
+        String sql = "insert into records(`studentId`,`record`,`testId`,`problemId`,`correct`) values(?, ?, ?, ?, ?)";
+        update(sql,record.getStudentId(),record.getRecord(),record.getTestId(),record.getProblemId(),record.getCorrect());
+    }
+
+    @Override
+    public Record queryByStudentIdAndTestIdAndProblemId(Integer studentId, Integer testId, Integer problemId) {
+        String sql = "select * from records where studentId = ? and testId = ? and problemId = ?";
+        return queryForOne(Record.class,sql,studentId,testId,problemId);
+    }
 }

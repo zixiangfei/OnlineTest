@@ -46,8 +46,9 @@
                 })
             })
 
-                $.getJSON("${pageScope.basePath}subjectServlet","action=ajaxAllSubject",function (data) {
+            $.getJSON("${pageScope.basePath}subjectServlet","action=ajaxAllSubject",function (data) {
                     $("#searchSelect").empty();
+                    $("#searchSelect").append("<option value=0>所有科目</option>");
                     for (let i in data.subjects) {
                         var value = data.subjects[i].name;
                         var subjectId = data.subjects[i].id;
@@ -76,36 +77,15 @@
 
 <div class="container-fluid" id="problem_list_container" style="margin-top: 30px;">
     <div class="row">
-        <div class="col-md-2" id="left-panel">
-            <div class="list-group" id="prob-category">
-                <a href="javascript:void(0)" class="list-group-item active" data-category="all">All</a>
-                <a href="javascript:void(0)" class="list-group-item" data-category="solved">
-                    Solved
-                    <span class="tag tag-success tag-pill float-sm-right"></span>
-                </a>
-                <a href="javascript:void(0)" class="list-group-item" data-category="attempted">
-                    Attempted
-                    <span class="tag tag-default tag-pill float-sm-right"></span>
-                </a>
-                <a href="javascript:void(0)" class="list-group-item" data-category="favorites">
-                    Favorites
-                    <span class="tag tag-warning tag-pill float-sm-right"></span>
-                </a>
-                <input type="hidden" name="category" value="all">
-            </div>
-        </div>
-        <div class="col-md-10" id="right-panel">
+        <div class="col-md-12" id="right-panel">
             <div id="listProblem_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                 <div class="">
                     <div class="dataTables_paginate paging_simple_numbers" id="listProblem_paginate">
                         <%@include file="/pages/common/page_nav.jsp"%>
                     </div>
-                    <div id="listProblem_processing" class="dataTables_processing card" style="display: none;">
-                        Processing...
-                    </div>
                     <div id="buttonContainer">
                         <input type="button" class="btn btn-secondary btn-md" id="filter"
-                                                     value="Filter" style="">
+                                                     value="查找" style="">
                         <input type="button"
                                class="btn btn-secondary btn-md"
                                id="createProblemBtn" value="添加题目" style="">
@@ -126,7 +106,6 @@
                         <th class="prob_num sorting" tabindex="0" aria-controls="listProblem" rowspan="1" colspan="1"
                             aria-label="Prob: activate to sort column ascending">
                             编号<br>
-                            <input type="text" id="probNum" name="probNum" class="search_text" style="width:95%">
                         </th>
                         <th class="title sorting" tabindex="0" aria-controls="listProblem" rowspan="1" colspan="1"
                             aria-label="Title: activate to sort column ascending">
@@ -136,6 +115,7 @@
                         <th class="oj hidden-md-down sorting_disabled" rowspan="1" colspan="1" aria-label="Source">
                             类型<br>
                             <select name="OJId" id="OJId" class="custom-select" data-width="auto">
+                                <option value="所有">所有题型</option>
                                 <option value="单选">单选</option>
                                 <option value="多选">多选</option>
                                 <option value="判断">判断</option>

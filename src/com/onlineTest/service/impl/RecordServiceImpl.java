@@ -12,6 +12,17 @@ public class RecordServiceImpl implements RecordService {
     RecordDao recordDao = new RecordDaoImpl();
 
     @Override
+    public void submitRecord(Record record) {
+        recordDao.saveRecord(record);
+    }
+
+    @Override
+    public Boolean existsRecord(Integer studentId, Integer testId, Integer problemId) {
+        Record record = recordDao.queryByStudentIdAndTestIdAndProblemId(studentId,testId,problemId);
+        return record != null;
+    }
+
+    @Override
     public List<Record> getRecordByTestId(Integer testId) {
         return recordDao.queryByTestId(testId);
     }

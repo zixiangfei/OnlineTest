@@ -109,6 +109,27 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>RecordServlet</servlet-name>
+        <servlet-class>com.onlineTest.web.RecordServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RecordServlet</servlet-name>
+        <url-pattern>/recordServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RankServlet</servlet-name>
+        <servlet-class>com.onlineTest.web.RankServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RankServlet</servlet-name>
+        <url-pattern>/rankServlet</url-pattern>
+    </servlet-mapping>
+
+
+
+
 
     <servlet>
         <servlet-name>TestApi</servlet-name>

@@ -11,12 +11,12 @@
 
     <c:if test="${requestScope.page.pageNo<=1}">
         <li class="paginate_button page-item previous disabled" id="listUser_previous">
-            <a href="#" aria-controls="listUser"  class="page-link">Previous</a>
+            <a href="#" aria-controls="listUser"  class="page-link">上一页</a>
         </li>
     </c:if>
     <c:if test="${requestScope.page.pageNo>1}">
         <li class="paginate_button page-item previous " id="listUser_previous">
-            <a href="${requestScope.page.url}&pageNo=${requestScope.page.pageNo-1}" aria-controls="listUser"  class="page-link">Previous</a>
+            <a href="${requestScope.page.url}&pageNo=${requestScope.page.pageNo-1}" aria-controls="listUser"  class="page-link">上一页</a>
         </li>
     </c:if>
 
@@ -67,12 +67,12 @@
 
     <c:if test="${requestScope.page.pageNo>=requestScope.page.pageTotal}">
         <li class="paginate_button page-item disabled" >
-            <a href="#" aria-controls="listUser"  class="page-link">Next</a>
+            <a href="#" aria-controls="listUser"  class="page-link">下一页</a>
         </li>
     </c:if>
     <c:if test="${requestScope.page.pageNo<requestScope.page.pageTotal}">
         <li class="paginate_button page-item " >
-            <a href="${requestScope.page.url}&pageNo=${requestScope.page.pageNo+1}" aria-controls="listUser"  class="page-link">Next</a>
+            <a href="${requestScope.page.url}&pageNo=${requestScope.page.pageNo+1}" aria-controls="listUser"  class="page-link">下一页</a>
         </li>
     </c:if>
 </ul>
