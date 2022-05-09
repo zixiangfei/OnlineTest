@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
@@ -71,5 +72,12 @@ public class TeacherApi extends BaseApi {
         } else {
             WebUtils.writeJSONString(resp, Result.error(ErrorCodeEnum.REQUEST_PARAMS_ERROR.getCode(), "验证码错误"));
         }
+    }
+
+    protected void getAllTeachers(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        List<Teacher> teachers = teacherService.allTeacher();
+        Map<String,Object> resultMap = new HashMap<String, Object>();
+        resultMap.put("teachers",teachers);
+        WebUtils.writeJSONString(resp, Result.success(resultMap));
     }
 }
