@@ -159,6 +159,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>ProblemApi</servlet-name>
+        <servlet-class>com.onlineTest.api.ProblemApi</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProblemApi</servlet-name>
+        <url-pattern>/api/v1/problem</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>StudentApi</servlet-name>
         <servlet-class>com.onlineTest.api.StudentApi</servlet-class>
     </servlet>

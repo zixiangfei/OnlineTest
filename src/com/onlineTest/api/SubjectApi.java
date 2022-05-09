@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SubjectApi extends BaseApi {
@@ -49,5 +50,12 @@ public class SubjectApi extends BaseApi {
         Map<String, Object> map = new HashMap<>();
         map.put("existsSubjectName", existsSubjectName);
         resp.getWriter().write(WebUtils.getJSONString(Result.success(map)));
+    }
+
+    protected void getAllSubjects(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        List<Subject> subjects = subjectService.allSubject();
+        Map<String,Object> resultMap = new HashMap<String, Object>();
+        resultMap.put("subjects",subjects);
+        WebUtils.writeJSONString(resp, Result.success(resultMap));
     }
 }

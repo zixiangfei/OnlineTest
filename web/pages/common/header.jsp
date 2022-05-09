@@ -6,8 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<link  rel="stylesheet" href="static/font-awesome-4.7.0/css/font-awesome.min.css">
+<link  rel="stylesheet" href="static/font-awesome/css/font-awesome.min.css">
 <link type="text/css" rel="stylesheet" href="static/css/header.css" >
+<link rel="shortcut icon" href="static/images/favicon.ico" type="image/x-icon">
 
 <nav class="navbar navbar-dark bg-inverse" id="top-nav">
     <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
