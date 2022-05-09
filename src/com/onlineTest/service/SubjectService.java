@@ -13,4 +13,8 @@ public interface SubjectService {
     void addSubject(Subject subject);
 
     List<Subject> allSubject();
+
+    Subject getSubjectById(Integer subjectId);
+
+    void updateSubjectById(Subject subject);
 }

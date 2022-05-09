@@ -44,4 +44,16 @@ public class ClassDaoImpl extends BaseDao implements ClassDao {
         String sql = "select * from class where id = ?";
         return queryForOne(Class.class,sql, classId);
     }
+
+    @Override
+    public List<Class> queryByTeacherId(Integer teacherId) {
+        String sql = "select * from class where teacherId = ?";
+        return queryForList(Class.class,sql,teacherId);
+    }
+
+    @Override
+    public void modifyClassById(Class modifyClass) {
+        String sql = "update class set `name` = ? , `teacherId` = ? , `members` = ? where id = ?";
+        update(sql,modifyClass.getName(),modifyClass.getTeacherId(),modifyClass.getMembers(),modifyClass.getId());
+    }
 }

@@ -28,6 +28,7 @@ public class AdminServlet extends BaseServlet{
         else {
             req.getSession().setAttribute("username",name);
             req.getSession().setAttribute("type","admin");
+            req.getSession().setAttribute("admin",admin);
             req.getRequestDispatcher("/index.jsp").forward(req,resp);
         }
     }

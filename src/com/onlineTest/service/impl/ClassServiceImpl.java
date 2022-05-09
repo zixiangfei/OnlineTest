@@ -57,4 +57,14 @@ public class ClassServiceImpl implements ClassService {
     public Class getClassById(Integer classId) {
         return classDao.queryById(classId);
     }
+
+    @Override
+    public void modifyClassById(Class modifyClass) {
+        classDao.modifyClassById(modifyClass);
+    }
+
+    @Override
+    public List<Class> getClassByTeacherId(Integer teacherId) {
+        return classDao.queryByTeacherId(teacherId);
+    }
 }

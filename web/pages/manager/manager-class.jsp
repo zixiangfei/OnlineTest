@@ -12,11 +12,36 @@
     <%@include file="/pages/common/head.jsp"%>
     <script type="text/javascript">
         $(function () {
+
+            $("[name='modifyBtn']").click(function () {
+                let modifyId = $(this).attr("value");
+                $("#createClassModal").addClass("in");
+                $("#createClassModal").attr("style","display:block;");
+                $("#createClassModal").attr("aria-hidden","true");
+                $("#loginModalLabel").text("修改班级");
+                $("[name='modal']").attr("value",2);
+                $("[name='modifyId']").attr("value",modifyId);
+                $.getJSON("${pageScope.basePath}teacherServlet","action=ajaxAllTeacher",function (data) {
+                    $("#selectTeacher").empty();
+                    for(let i in data.teachers) {
+                        var value = data.teachers[i].id;
+                        var name = data.teachers[i].username;
+                        $("#selectTeacher").append("<option value="+value+">"+name+"</option>")
+                    }
+                })
+                $.getJSON("${pageScope.basePath}classServlet","action=ajaxShowClassById&modifyId="+modifyId,function (data) {
+                    $("#insert-name").attr("value",data.modifyClass.name);
+                    $("[name='members']").attr("value",data.modifyClass.members);
+                })
+            })
+
             $("#createClassBtn").click(function () {
                 $("#createClassModal").addClass("in");
                 $("#createClassModal").attr("style","display:block;");
                 $("#createClassModal").attr("aria-hidden","true");
-
+                $("#loginModalLabel").text("增加班级");
+                $("[name='modal']").attr("value",1);
+                $("#insert-name").attr("value","");
                 $.getJSON("${pageScope.basePath}teacherServlet","action=ajaxAllTeacher",function (data) {
                     $("#selectTeacher").empty();
                     for(let i in data.teachers) {
@@ -136,7 +161,7 @@
                         <td class=" username"><a href="/user/Heart_Blue" target="_blank">${Class.name}</a></td>
                         <td class=" nickname" name="teacherName">${Class.teacherId}</td>
 <%--                        <td class=" school"><div>${student.classId}</div></td>--%>
-                        <td class=" solved"><a href="" target="_blank">1</a></td>
+                        <td class=" solved"><span style="color:blue;" name="modifyBtn" value="${Class.id}">修改</span></td>
 <%--                        <td class=" attempted"><a href="" target="_blank">1</a></td>--%>
                     </tr>
                     </c:forEach>
@@ -157,6 +182,9 @@
             <div class="modal-body">
                 <form id="add-form" action="classServlet" method="get">
                     <input hidden="hidden" name="action" value="add">
+                    <input hidden="hidden" name="modal" value="1">
+                    <input hidden="hidden" name="modifyId" value="1">
+                    <input hidden="hidden" name="members" value="1">
                     <input hidden="hidden" name="pageNo" value="${requestScope.page.pageNo}">
                     <div class="form-group row">
                         <label for="insert-name" class="col-xs-2 col-form-label">班级名</label>
@@ -166,7 +194,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="selectTeacher" class="col-xs-2 col-form-label">科目</label>
+                        <label for="selectTeacher" class="col-xs-2 col-form-label">教师</label>
                         <div class="col-xs-10">
                             <select id="selectTeacher" class="custom-select" v="oj" name="teacherId"></select>
                         </div>

@@ -21,17 +21,26 @@
             <li class="nav-item" id="nav-problem">
                 <a class="nav-link" href="problemServlet?action=pageProblem" style="color:#b0ead8;">问题列表</a>
             </li>
-            <li class="nav-item" id="nav-contest">
-                <a class="nav-link" href="/contest" style="color:#b0ead8;">测验列表</a>
-            </li>
-<%--            <c:if test="${sessionScope.type == 'admin'}">--%>
+            <c:if test="${sessionScope.type eq 'admin'}">
                 <li class="nav-item" id="nav-user">
                     <a class="nav-link" href="studentServlet?action=pageStudent" style="color:#b0ead8;" >管理</a>
                 </li>
-<%--            </c:if>--%>
-            <li class="nav-item" id="nav-group">
-                <a class="nav-link" href="classServlet?action=showClassList" style="color:#b0ead8;">班级</a>
-            </li>
+            </c:if>
+            <c:if test="${sessionScope.type eq 'teacher'}">
+                <li class="nav-item" id="nav-group">
+                    <a class="nav-link" href="classServlet?action=showClassListByTeacherId&teacherId=${sessionScope.teacher.id}" style="color:#b0ead8;">班级</a>
+                </li>
+            </c:if>
+            <c:if test="${sessionScope.type eq 'admin'}">
+                <li class="nav-item" id="nav-group">
+                    <a class="nav-link" href="classServlet?action=showClassList" style="color:#b0ead8;">班级</a>
+                </li>
+            </c:if>
+            <c:if test="${sessionScope.type eq 'student'}">
+                <li class="nav-item" id="nav-group">
+                    <a class="nav-link" href="classServlet?action=showClassDetails&classId=${sessionScope.student.classId}" style="color:#b0ead8;">班级</a>
+                </li>
+            </c:if>
 
             <li class="nav-item float-xs-right">
                 <c:if test="${empty sessionScope.username}">

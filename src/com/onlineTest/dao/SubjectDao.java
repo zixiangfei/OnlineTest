@@ -14,4 +14,8 @@ public interface SubjectDao {
     Integer saveSubject(Subject subject);
 
     List<Subject> queryAllSubject();
+
+    Subject queryById(Integer subjectId);
+
+    void updateSubjectById(Subject subject);
 }

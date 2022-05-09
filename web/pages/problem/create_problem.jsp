@@ -268,6 +268,8 @@
 <div class="modal fade" id="createProblemModal" tabindex="-1" role="dialog" style="display: none;" aria-hidden="false">
     <div class="modal-dialog modal-lg" role="document">
         <form action="problemServlet" id="createProblemForm">
+            <input hidden="hidden" name="modal" value="1">
+            <input hidden="hidden" name="modifyId" value="1">
             <input hidden="hidden" name="action" value="createProblem">
             <div class="modal-content">
                 <div class="modal-header">

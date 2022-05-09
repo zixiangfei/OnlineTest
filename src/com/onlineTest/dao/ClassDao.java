@@ -17,4 +17,8 @@ public interface ClassDao {
     List<Class> queryAllClass();
 
     Class queryById(Integer classId);
+
+    void modifyClassById(Class modifyClass);
+
+    List<Class> queryByTeacherId(Integer teacherId);
 }

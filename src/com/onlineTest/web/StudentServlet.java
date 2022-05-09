@@ -1,10 +1,14 @@
 package com.onlineTest.web;
 
+import com.google.gson.Gson;
 import com.onlineTest.dao.StudentDao;
 import com.onlineTest.dao.impl.StudentDaoImpl;
+import com.onlineTest.pojo.Class;
 import com.onlineTest.pojo.Page;
 import com.onlineTest.pojo.Student;
+import com.onlineTest.service.ClassService;
 import com.onlineTest.service.StudentService;
+import com.onlineTest.service.impl.ClassServiceImpl;
 import com.onlineTest.service.impl.StudentServiceImpl;
 import com.onlineTest.utils.WebUtils;
 
@@ -12,13 +16,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
 
 public class StudentServlet extends BaseServlet{
 
     StudentService studentService = new StudentServiceImpl();
+    ClassService classService = new ClassServiceImpl();
 
     protected void loginStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
@@ -82,5 +89,33 @@ public class StudentServlet extends BaseServlet{
         req.setAttribute("page",page);
         System.out.println(page);
         req.getRequestDispatcher("/pages/manager/manager-student.jsp").forward(req,resp);
+    }
+
+    protected void ajaxShowStudentById(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Integer modifyId = WebUtils.parseInt(req.getParameter("modifyId"),0);
+        Student studentById = studentService.getStudentById(modifyId);
+        Map<String,Object> resultMap = new HashMap<>();
+        resultMap.put("modifyStudent",studentById);
+        Gson gson = new Gson();
+        resp.getWriter().write(gson.toJson(resultMap));
+    }
+
+    protected void modifyStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Integer classId = WebUtils.parseInt(req.getParameter("classId"),0);
+        Class newClass = classService.getClassById(classId);
+        String newNikename = req.getParameter("insert-name");
+        Integer modifyId = WebUtils.parseInt(req.getParameter("modifyId"),0);
+        Student studentById = studentService.getStudentById(modifyId);
+        Integer oldClassId = WebUtils.parseInt(studentById.getClassId(),0);
+        System.out.println(oldClassId);
+        System.out.println(classId);
+        if(oldClassId!=null&&oldClassId != 0) {
+            Class oldClass = classService.getClassById(oldClassId);
+            classService.modifyClassById(new Class(oldClass.getName(),oldClassId,oldClass.getTeacherId(),oldClass.getImage(),oldClass.getMembers()-1));
+        }
+        classService.modifyClassById(new Class(newClass.getName(),newClass.getId(),newClass.getTeacherId(),newClass.getImage(),newClass.getMembers()+1));
+        studentService.modifyStudentById(new Student(studentById.getId(),studentById.getUsername(),studentById.getPassword(),studentById.getEmail(),classId.toString(),newNikename));
+
+        resp.sendRedirect(req.getHeader("Referer"));
     }
 }

@@ -67,7 +67,7 @@
 <%--                        <th class="school sorting_disabled" rowspan="1" colspan="1" aria-label="School">School<br>--%>
 <%--                        <input type="text" id="school" name="school" class="search_text" style="width:95%">--%>
                         </th>
-                        <th class="solved sorting_disabled" rowspan="1" colspan="1" aria-label="Solved">修改</th>
+<%--                        <th class="solved sorting_disabled" rowspan="1" colspan="1" aria-label="Solved">修改</th>--%>
 <%--                        <th class="attempted sorting_disabled" rowspan="1" colspan="1" aria-label="Attempted">Attempted</th>--%>
                     </tr>
                     </thead>
@@ -76,10 +76,10 @@
                     <c:forEach items="${requestScope.page.items}" var="teacher" varStatus="i">
                     <tr class="${i.index%2==0?"odd":"even"}">
                         <td class="rank">${i.index+1}</td>
-                        <td class=" username"><a href="/user/Heart_Blue" target="_blank">${teacher.username}</a></td>
+                        <td class=" username"><a href="javascript:void(0)" target="_blank">${teacher.username}</a></td>
                         <td class=" nickname">${teacher.nikename}</td>
 <%--                        <td class=" school"><div>${student.classId}</div></td>--%>
-                        <td class=" solved"><a href="" target="_blank">1</a></td>
+<%--                        <td class=" solved"><a href="" target="_blank">1</a></td>--%>
 <%--                        <td class=" attempted"><a href="" target="_blank">1</a></td>--%>
                     </tr>
                     </c:forEach>

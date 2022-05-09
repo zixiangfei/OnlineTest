@@ -10,4 +10,8 @@ public interface ProblemService {
     void saveProblem(Problem problem);
 
     Problem getProblemById(Integer problemId);
+
+    Page<Problem> pageByParameter(Integer pageNo, Integer pageSize, Integer subjectId, String describe, String type);
+
+    void updateProblemById(Problem problem);
 }

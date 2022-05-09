@@ -10,4 +10,8 @@ public interface RecordService {
     void submitRecord(Record record);
 
     Boolean existsRecord(Integer studentId, Integer testId, Integer problemId);
+
+    Record getRecordByStudentIdAndTestIdAndProblemId(Integer studentId, Integer testId, Integer problemId);
+
+    void resetProblem(Integer studentId, Integer testId, Integer problemId);
 }

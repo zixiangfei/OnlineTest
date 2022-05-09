@@ -50,21 +50,31 @@ public class ClassServlet extends BaseServlet{
 
         Random r = new Random();
         String image="https://himg.bdimg.com/sys/portrait/hotitem/wildkid/" + r.nextInt(67);
-
-        if(classService.existsClassName(name)) {
-            Page<Class> page = classService.page(pageNo,pageSize);
-            page.setType("class");
-            page.setUrl("classServlet?action=pageClass");
-            req.setAttribute("addMsg","该课程已存在！");
-            req.setAttribute("page",page);
-            resp.sendRedirect(req.getContextPath()+"/classServlet?action=pageClass&pageNo="+pageNo);
+        Integer modal = WebUtils.parseInt(req.getParameter("modal"),0);
+        if(modal==1) {
+            if(classService.existsClassName(name)) {
+                Page<Class> page = classService.page(pageNo,pageSize);
+                page.setType("class");
+                page.setUrl("classServlet?action=pageClass");
+                req.setAttribute("addMsg","该课程已存在！");
+                req.setAttribute("page",page);
+                resp.sendRedirect(req.getContextPath()+"/classServlet?action=pageClass&pageNo="+pageNo);
+            }
+            else {
+                Page<Class> page = classService.page(pageNo,pageSize);
+                classService.addClass(new Class(name,null,teacherId,image,0));
+                page.setType("class");
+                page.setUrl("classServlet?action=pageClass");
+                req.setAttribute("page",page);
+                resp.sendRedirect(req.getContextPath()+"/classServlet?action=pageClass&pageNo="+pageNo);
+            }
         }
         else {
-            Page<Class> page = classService.page(pageNo,pageSize);
-            classService.addClass(new Class(name,null,teacherId,image,0));
-            page.setType("class");
-            page.setUrl("classServlet?action=pageClass");
-            req.setAttribute("page",page);
+            Integer classId = WebUtils.parseInt(req.getParameter("modifyId"),0);
+            Integer members = WebUtils.parseInt(req.getParameter("members"),0);
+            Class modifyClass = new Class(name,classId,teacherId,image,members);
+            System.out.println(modifyClass);
+            classService.modifyClassById(modifyClass);
             resp.sendRedirect(req.getContextPath()+"/classServlet?action=pageClass&pageNo="+pageNo);
         }
     }
@@ -80,6 +90,13 @@ public class ClassServlet extends BaseServlet{
 
     protected void showClassList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Class> classes = classService.classList();
+        req.setAttribute("classes",classes);
+        req.getRequestDispatcher("/pages/classes/class-major.jsp").forward(req,resp);
+    }
+
+    protected void showClassListByTeacherId(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Integer teacherId = WebUtils.parseInt(req.getParameter("teacherId"),0);
+        List<Class> classes = classService.getClassByTeacherId(teacherId);
         req.setAttribute("classes",classes);
         req.getRequestDispatcher("/pages/classes/class-major.jsp").forward(req,resp);
     }
@@ -108,5 +125,22 @@ public class ClassServlet extends BaseServlet{
             req.getRequestDispatcher("/pages/classes/class-open.jsp").forward(req,resp);
 
         }
+    }
+
+    protected void ajaxShowClassById(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Integer modifyId = WebUtils.parseInt(req.getParameter("modifyId"),0);
+        Class classById = classService.getClassById(modifyId);
+        Map<String,Object> resultMap = new HashMap<>();
+        resultMap.put("modifyClass",classById);
+        Gson gson = new Gson();
+        resp.getWriter().write(gson.toJson(resultMap));
+    }
+
+    protected void ajaxShowClassList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Class> classList = classService.classList();
+        Map<String,Object> resultMap = new HashMap<>();
+        resultMap.put("classList",classList);
+        Gson gson = new Gson();
+        resp.getWriter().write(gson.toJson(resultMap));
     }
 }

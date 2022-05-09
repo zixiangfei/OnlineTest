@@ -13,4 +13,11 @@ public interface ProblemDao {
     Integer saveProblem(Problem problem);
 
     Problem queryById(Integer problemId);
+
+    Integer queryForPageTotalCountByParameter(Integer subjectId, String describe, String type);
+
+    List<Problem> queryForPageItemsByParameter(Integer begin, Integer pageSize, Integer subjectId, String describe, String type);
+
+    void updateProblemById(Problem problem);
+
 }

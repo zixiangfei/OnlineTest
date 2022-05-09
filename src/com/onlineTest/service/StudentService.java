@@ -20,4 +20,6 @@ public interface StudentService {
     List<Student> getStudentListByClassId(Integer classId);
 
     Student getStudentById(Integer studentId);
+
+    void modifyStudentById(Student student);
 }

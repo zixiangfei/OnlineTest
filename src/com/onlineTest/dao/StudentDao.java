@@ -21,4 +21,6 @@ public interface StudentDao {
     List<Student> queryByClassId(Integer classId);
 
     Student queryById(Integer studentId);
+
+    void modifyStudentById(Student student);
 }

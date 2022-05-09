@@ -26,4 +26,14 @@ public class RecordServiceImpl implements RecordService {
     public List<Record> getRecordByTestId(Integer testId) {
         return recordDao.queryByTestId(testId);
     }
+
+    @Override
+    public Record getRecordByStudentIdAndTestIdAndProblemId(Integer studentId, Integer testId, Integer problemId) {
+        return  recordDao.queryByStudentIdAndTestIdAndProblemId(studentId,testId,problemId);
+    }
+
+    @Override
+    public void resetProblem(Integer studentId, Integer testId, Integer problemId) {
+        recordDao.deleteByStudentIdAndTestIdAndProblemId(studentId,testId,problemId);
+    }
 }

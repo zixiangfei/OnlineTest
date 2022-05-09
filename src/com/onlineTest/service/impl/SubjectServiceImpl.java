@@ -53,4 +53,14 @@ public class SubjectServiceImpl implements SubjectService {
     public List<Subject> allSubject() {
         return subjectDao.queryAllSubject();
     }
+
+    @Override
+    public Subject getSubjectById(Integer subjectId) {
+        return subjectDao.queryById(subjectId);
+    }
+
+    @Override
+    public void updateSubjectById(Subject subject) {
+        subjectDao.updateSubjectById(subject);
+    }
 }

@@ -61,8 +61,21 @@ public class RecordServlet extends BaseServlet{
         System.out.println(existsRecord);
         resultMap.put("existsRecord",existsRecord);
         resultMap.put("problemById",problemById);
+        Record nowRecord  = recordService.getRecordByStudentIdAndTestIdAndProblemId(studentId,testId,problemId);
+        if(nowRecord!=null) {
+            resultMap.put("correct",nowRecord.getCorrect());
+        }
         System.out.println(problemById);
         Gson gson = new Gson();
         resp.getWriter().write(gson.toJson(resultMap));
+    }
+
+    protected void resetProblem(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Integer studentId = WebUtils.parseInt(req.getParameter("submitStudentId"),0);
+        Integer testId = WebUtils.parseInt(req.getParameter("submitTestId"),0);
+        Integer problemId = WebUtils.parseInt(req.getParameter("submitProblemId"),0);
+        recordService.resetProblem(studentId,testId,problemId);
+        System.out.println(req.getHeader("Referer"));
+        resp.sendRedirect(req.getHeader("Referer"));
     }
 }

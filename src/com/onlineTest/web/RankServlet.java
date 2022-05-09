@@ -41,7 +41,7 @@ public class RankServlet extends BaseServlet{
         }
 
         Map<String,Object> resultMap = new HashMap<>();
-
+        System.out.println(studentList.toString());
         resultMap.put("studentList",studentList);
         resultMap.put("recordList",recordList);
         resultMap.put("rankItemList",rankItemList);

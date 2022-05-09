@@ -16,6 +16,20 @@
             window.location.replace("pages/user/login.jsp");
             </c:if>
 
+            $("[name='modifySubject']").click(function () {
+                $("[name='modal']").attr("value",2);
+                let subjectId = $(this).attr("value");
+                $("[name='modifyId']").attr("value",subjectId);
+                $("#loginModalLabel").text("修改课程");
+                $("#insertSubjectModal").addClass("in");
+                $("#insertSubjectModal").attr("style","display:block;");
+                $("#insertSubjectModal").attr("aria-hidden","true");
+
+                $.getJSON("${pageScope.basePath}subjectServlet","action=ajaxShowSubjectById&subjectId="+subjectId,function (data) {
+                    $("#insert-name").attr("value",data.modifySubject.name);
+                })
+            })
+
             $("#insertSubjectClose").click(function () {
                 $("#insertSubjectModal").removeClass("in");
                 $("#insertSubjectModal").attr("style","display:none;");
@@ -29,9 +43,12 @@
             })
 
             $("#insertSubjectOpen").click(function () {
+                $("#loginModalLabel").text("增加课程");
+                $("#insert-name").attr("value","");
                 $("#insertSubjectModal").addClass("in");
                 $("#insertSubjectModal").attr("style","display:block;");
                 $("#insertSubjectModal").attr("aria-hidden","true");
+                $("[name='modal']").attr("value",1);
             })
 
             $("#btn-insert").click(function () {
@@ -112,9 +129,6 @@
                         <th class="username sorting_disabled" rowspan="1" colspan="1" aria-label="Username">课程名<br>
 <%--                            <input type="text" id="username" name="username" class="search_text" style="width:95%">--%>
                         </th>
-                        <th class="nickname sorting_disabled" rowspan="1" colspan="1" aria-label="Nickname">删除<br>
-<%--                            <input type="text" id="nickname" name="nickname" class="search_text" style="width:95%">--%>
-                        </th>
 <%--                        <th class="school sorting_disabled" rowspan="1" colspan="1" aria-label="School">School<br>--%>
 <%--                        <input type="text" id="school" name="school" class="search_text" style="width:95%">--%>
                         </th>
@@ -128,9 +142,8 @@
                     <tr class="${i.index%2==0?"odd":"even"}">
                         <td class="rank">${i.index+1}</td>
                         <td class=" username">${subject.name}</td>
-                        <td class=" nickname">1</td>
 <%--                        <td class=" school"><div>${student.classId}</div></td>--%>
-                        <td class=" solved"><a href="" target="_blank">1</a></td>
+                        <td class=" solved"><span name="modifySubject" value="${subject.id}" style="color:blue;">修改</span></td>
 <%--                        <td class=" attempted"><a href="" target="_blank">1</a></td>--%>
                     </tr>
                     </c:forEach>
@@ -152,6 +165,8 @@
             <div class="modal-body">
                 <form id="add-form" action="subjectServlet" method="get">
                     <input hidden="hidden" name="action" value="add">
+                    <input hidden="hidden" name="modal" value="1">
+                    <input hidden="hidden" name="modifyId" value="1">
                     <input hidden="hidden" name="pageNo" value="${requestScope.page.pageNo}">
                     <div class="form-group">
                         <!--<label for="login-username" class="form-control-label">Username:</label>-->

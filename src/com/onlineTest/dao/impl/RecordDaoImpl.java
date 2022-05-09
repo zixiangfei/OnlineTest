@@ -23,4 +23,10 @@ public class RecordDaoImpl extends BaseDao implements RecordDao {
         String sql = "select * from records where studentId = ? and testId = ? and problemId = ?";
         return queryForOne(Record.class,sql,studentId,testId,problemId);
     }
+
+    @Override
+    public void deleteByStudentIdAndTestIdAndProblemId(Integer studentId, Integer testId, Integer problemId) {
+        String sql = "delete from records where studentId = ? and testId = ? and problemId = ?";
+        update(sql,studentId,testId,problemId);
+    }
 }

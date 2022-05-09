@@ -33,6 +33,7 @@ public class TeacherServlet extends BaseServlet{
         else {
             req.getSession().setAttribute("username",username);
             req.getSession().setAttribute("type","teacher");
+            req.getSession().setAttribute("teacher",teacher);
             req.getRequestDispatcher("/index.jsp").forward(req,resp);
         }
     }
@@ -82,6 +83,15 @@ public class TeacherServlet extends BaseServlet{
         List<Teacher> teachers = teacherService.allTeacher();
         Map<String,Object> resultMap = new HashMap<String, Object>();
         resultMap.put("teachers",teachers);
+        Gson gson = new Gson();
+        resp.getWriter().write(gson.toJson(resultMap));
+    }
+
+    protected void ajaxShowTeacherById(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Integer modifyId = WebUtils.parseInt(req.getParameter("modifyId"),0);
+        Teacher teacherById = teacherService.getTeacherById(modifyId);
+        Map<String,Object> resultMap = new HashMap<>();
+        resultMap.put("modifyTeacher",teacherById);
         Gson gson = new Gson();
         resp.getWriter().write(gson.toJson(resultMap));
     }

@@ -11,9 +11,58 @@
     <title>Manager-OnlineTest</title>
     <%@include file="/pages/common/head.jsp"%>
     <script type="text/javascript">
-        <c:if test="${not sessionScope.type eq 'admin'}">
-            window.location.replace("pages/user/login.jsp");
-        </c:if>
+        $(function () {
+            $.getJSON("${pageScope.basePath}classServlet","action=ajaxShowClassList",function (data) {
+                let className = $("[name='className']");
+                className.each(function () {
+                    for(let i in data.classList) {
+                        let name = data.classList[i].name;
+                        let classId = data.classList[i].id+"";
+                        console.log(classId);
+                        console.log($(this).children(":first").text())
+                        if($(this).children(":first").text()===classId) {
+                            $(this).children(":first").text(name);
+                        }
+                    }
+                })
+            })
+
+            $("[name='modifyBtn']").click(function () {
+                $("#createClassModal").addClass("in");
+                $("#createClassModal").attr("style","display:block;");
+                $("#createClassModal").attr("aria-hidden","true");
+                $.getJSON("${pageScope.basePath}classServlet","action=ajaxShowClassList",function (data) {
+                    $("#selectClass").empty();
+                    for(let i in data.classList) {
+                        let name = data.classList[i].name;
+                        let classId = data.classList[i].id;
+                        $("#selectClass").append("<option value="+classId+">"+name+"</option>");
+                    }
+                })
+                let modifyId = $(this).attr("value");
+                $("[name='modifyId']").attr("value",modifyId);
+                $.getJSON("${pageScope.basePath}studentServlet","action=ajaxShowStudentById&modifyId="+modifyId,function (data) {
+                    $("#insert-name").attr("value",data.modifyStudent.nikename);
+                })
+            })
+
+
+            $("#createClassClose").click(function () {
+                $("#createClassModal").removeClass("in");
+                $("#createClassModal").attr("style","display:none;");
+                $("#createClassModal").attr("aria-hidden","false");
+            })
+
+            $("#createClassCancel").click(function () {
+                $("#createClassModal").removeClass("in");
+                $("#createClassModal").attr("style","display:none;");
+                $("#createClassModal").attr("aria-hidden","false");
+            })
+
+            $("#btn-insert").click(function () {
+                $("#add-form").submit();
+            })
+        })
     </script>
     <style type="text/css">
         .not-active {
@@ -76,10 +125,10 @@
                     <c:forEach items="${requestScope.page.items}" var="student" varStatus="i">
                     <tr class="${i.index%2==0?"odd":"even"}">
                         <td class="rank">${i.index+1}</td>
-                        <td class=" username"><a href="/user/Heart_Blue" target="_blank">${student.username}</a></td>
+                        <td class=" username"><a href="javascript:void(0)" target="_blank">${student.username}</a></td>
                         <td class=" nickname">${student.nikename}</td>
-                        <td class=" school"><div>${student.classId}</div></td>
-                        <td class=" solved"><a href="" target="_blank">1</a></td>
+                        <td class=" school" name="className"><div>${student.classId}</div></td>
+                        <td class=" solved"><span style="color:blue;" name="modifyBtn" value="${student.id}">修改</span></td>
 <%--                        <td class=" attempted"><a href="" target="_blank">1</a></td>--%>
                     </tr>
                     </c:forEach>
@@ -88,7 +137,45 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="createClassModal" tabindex="-1" role="dialog" style="display: none;" aria-hidden="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="createClassClose">
+                    <span>×</span>
+                </button>
+                <h4 class="modal-title" id="loginModalLabel">修改学生信息</h4>
+            </div>
+            <div class="modal-body">
+                <form id="add-form" action="studentServlet" method="get">
+                    <input hidden="hidden" name="action" value="modifyStudent">
+                    <input hidden="hidden" name="modifyId" value="1">
+                    <input hidden="hidden" name="pageNo" value="${requestScope.page.pageNo}">
+                    <div class="form-group row">
+                        <label for="insert-name" class="col-xs-2 col-form-label">昵称</label>
+                        <div class="col-xs-10">
+                            <input type="text" class="form-control" name="insert-name" id="insert-name">
+                        </div>
+                    </div>
 
+                    <div class="form-group row">
+                        <label for="selectClass" class="col-xs-2 col-form-label">班级</label>
+                        <div class="col-xs-10">
+                            <select id="selectClass" class="custom-select" v="oj" name="classId"></select>
+                        </div>
+                    </div>
+
+                    <input type="submit" style="display: none">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="alert alert-danger" role="alert" id="insert-alert" style="display: none"></div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="createClassCancel">取消</button>
+                <button type="button" class="btn btn-primary" id="btn-insert">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <%@include file="/pages/common/footer.jsp"%>
 </body>

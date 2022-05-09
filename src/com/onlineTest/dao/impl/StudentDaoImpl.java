@@ -55,4 +55,10 @@ public class StudentDaoImpl extends BaseDao implements StudentDao {
         String sql = "select * from student where id = ?";
         return queryForOne(Student.class,sql,studentId);
     }
+
+    @Override
+    public void modifyStudentById(Student student) {
+        String sql = "update student set `username` = ?, `password` = ? , `email` =  ?, `classId` = ?, nikename = ? where id = ?";
+        update(sql,student.getUsername(),student.getPassword(),student.getEmail(),student.getClassId(),student.getNikename(),student.getId());
+    }
 }

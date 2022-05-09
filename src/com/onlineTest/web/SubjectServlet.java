@@ -38,21 +38,33 @@ public class SubjectServlet extends BaseServlet{
         Integer pageNo = WebUtils.parseInt(req.getParameter("pageNo"),1);
         Integer pageSize = WebUtils.parseInt(req.getParameter("pageSize"), Page.page_size);
         System.out.println(name);
-        if(subjectService.existsSubjectName(name)) {
-            Page<Subject> page = subjectService.page(pageNo,pageSize);
-            page.setType("subject");
-            page.setUrl("subjectServlet?action=pageSubject");
-            req.setAttribute("addMsg","该课程已存在！");
-            req.setAttribute("page",page);
-            resp.sendRedirect(req.getContextPath()+"/subjectServlet?action=pageSubject&pageNo="+pageNo);
+        Integer modal = WebUtils.parseInt(req.getParameter("modal"),0);
+        if(modal==1) {
+            if(subjectService.existsSubjectName(name)) {
+                Page<Subject> page = subjectService.page(pageNo,pageSize);
+                page.setType("subject");
+                page.setUrl("subjectServlet?action=pageSubject");
+                req.setAttribute("addMsg","该课程已存在！");
+                req.setAttribute("page",page);
+                resp.sendRedirect(req.getContextPath()+"/subjectServlet?action=pageSubject&pageNo="+pageNo);
+            }
+            else {
+                subjectService.addSubject(new Subject(null,name));
+                Page<Subject> page = subjectService.page(pageNo,pageSize);
+                page.setType("subject");
+                page.setUrl("subjectServlet?action=pageSubject");
+                resp.sendRedirect(req.getContextPath()+"/subjectServlet?action=pageSubject&pageNo="+pageNo);
+            }
         }
         else {
-            subjectService.addSubject(new Subject(null,name));
-            Page<Subject> page = subjectService.page(pageNo,pageSize);
-            page.setType("subject");
-            page.setUrl("subjectServlet?action=pageSubject");
+            Integer modifyId = WebUtils.parseInt(req.getParameter("modifyId"),0);
+            Subject subject = new Subject(modifyId,name);
+            System.out.println(subject);
+            subjectService.updateSubjectById(subject);
             resp.sendRedirect(req.getContextPath()+"/subjectServlet?action=pageSubject&pageNo="+pageNo);
+
         }
+
     }
 
     protected void ajaxExistsSubjectName(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -69,6 +81,15 @@ public class SubjectServlet extends BaseServlet{
         List<Subject> subjects = subjectService.allSubject();
         Map<String,Object> resultMap = new HashMap<String, Object>();
         resultMap.put("subjects",subjects);
+        Gson gson = new Gson();
+        resp.getWriter().write(gson.toJson(resultMap));
+    }
+
+    protected void ajaxShowSubjectById(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Integer subjectId = WebUtils.parseInt(req.getParameter("subjectId"),0);
+        Subject modifySubject = subjectService.getSubjectById(subjectId);
+        Map<String,Object> resultMap = new HashMap<>();
+        resultMap.put("modifySubject",modifySubject);
         Gson gson = new Gson();
         resp.getWriter().write(gson.toJson(resultMap));
     }

@@ -30,4 +30,91 @@ public class ProblemDaoImpl extends BaseDao implements ProblemDao {
         String sql = "select * from problems where id = ?";
         return queryForOne(Problem.class,sql,problemId);
     }
+
+    @Override
+    public Integer queryForPageTotalCountByParameter(Integer subjectId, String describe, String type) {
+        String sql = "select count(*) from problems ";
+        int cnt=0,kind=0;
+        if(subjectId!=0) {
+            if(cnt==0) {
+                sql += "where";
+            }
+            cnt++;
+            kind += 4;
+            sql += " subjectId = "+subjectId+" ";
+        }
+        if(!"所有".equals(type)) {
+            if(cnt==0) {
+                sql += "where";
+            }
+            else {
+                sql += "and";
+            }
+            cnt++;
+            kind+=2;
+            sql += " type = '"+type+"' ";
+        }
+
+        if(describe!=null&&!"".equals(describe)) {
+            if(cnt==0) {
+                sql += "where";
+            }
+            else {
+                sql += "and";
+            }
+            cnt++;
+            kind++;
+            sql += " `describe` like '%"+describe+"%' ";
+        }
+        Number count = (Number) queryForSingleValue(sql);
+        System.out.println(sql);
+        return count.intValue();
+    }
+
+    @Override
+    public List<Problem> queryForPageItemsByParameter(Integer begin, Integer pageSize, Integer subjectId, String describe, String type) {
+        String sql = "select * from problems ";
+        int cnt=0,kind=0;
+        if(subjectId!=0) {
+            if(cnt==0) {
+                sql += "where";
+            }
+            cnt++;
+            kind += 4;
+            sql += " subjectId = "+subjectId+" ";
+        }
+        if(!"所有".equals(type)) {
+            if(cnt==0) {
+                sql += "where";
+            }
+            else {
+                sql += "and";
+            }
+            cnt++;
+            kind+=2;
+            sql += " type = '"+type+"' ";
+        }
+
+        if(describe!=null&&!"".equals(describe)) {
+            if(cnt==0) {
+                sql += "where";
+            }
+            else {
+                sql += "and";
+            }
+            cnt++;
+            kind++;
+            sql += " `describe` like '%"+describe+"%' ";
+        }
+        sql += " limit ?, ?";
+        System.out.println(sql);
+        return queryForList(Problem.class,sql,begin,pageSize);
+    }
+
+    @Override
+    public void updateProblemById(Problem problem) {
+        String sql = "update problems set `describe` = ? , `subjectId` = ? , `analysis` = ? , `options` = ? , `type`  = ? where id = ?";
+        update(sql,problem.getDescribe(),problem.getSubjectId(),problem.getAnalysis(),problem.getOptions(),problem.getType(),problem.getId());
+    }
 }
+
