@@ -3,6 +3,8 @@ package com.onlineTest.api;
 import com.onlineTest.common.Result;
 import com.onlineTest.enums.ErrorCodeEnum;
 import com.onlineTest.utils.WebUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public abstract class BaseApi extends HttpServlet {
+    protected final Log log = LogFactory.getLog(getClass());
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         doPost(req, resp);
@@ -27,8 +31,7 @@ public abstract class BaseApi extends HttpServlet {
             method.invoke(this, req, resp);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             resp.getWriter().write(WebUtils.getJSONString(Result.error(ErrorCodeEnum.SYSTEM_ERROR.getCode(), ErrorCodeEnum.SYSTEM_ERROR.getMessage())));
-            e.printStackTrace();
-            throw new RuntimeException(e);
+            log.error(e.getMessage());
         }
     }
 

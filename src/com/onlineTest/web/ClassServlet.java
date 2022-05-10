@@ -73,7 +73,6 @@ public class ClassServlet extends BaseServlet{
             Integer classId = WebUtils.parseInt(req.getParameter("modifyId"),0);
             Integer members = WebUtils.parseInt(req.getParameter("members"),0);
             Class modifyClass = new Class(name,classId,teacherId,image,members);
-            System.out.println(modifyClass);
             classService.modifyClassById(modifyClass);
             resp.sendRedirect(req.getContextPath()+"/classServlet?action=pageClass&pageNo="+pageNo);
         }
@@ -104,9 +103,7 @@ public class ClassServlet extends BaseServlet{
     protected void showClassDetails(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer classId = WebUtils.parseInt(req.getParameter("classId"),1);
         Integer type = WebUtils.parseInt(req.getParameter("type"),0);
-        System.out.println(classId);
         Class curClass = classService.getClassById(classId);
-        System.out.println(curClass);
         Teacher curTeacher =  teacherService.getTeacherById(curClass.getTeacherId());
         List<Student> studentList = studentService.getStudentListByClassId(classId);
         List<Test> testList = testService.getTestListByClassId(classId);

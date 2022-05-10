@@ -26,9 +26,6 @@ public class RecordServlet extends BaseServlet{
         Integer testId = WebUtils.parseInt(req.getParameter("submitTestId"),0);
         Integer problemId = WebUtils.parseInt(req.getParameter("submitProblemId"),0);
         int correct = 0;
-        System.out.println(studentId);
-        System.out.println(testId);
-        System.out.println(problemId);
         String[] submitOptions = req.getParameterValues("submitOption");
         StringBuilder recordStr = new StringBuilder();
         for(int i=0;i<submitOptions.length;++i) {
@@ -37,10 +34,7 @@ public class RecordServlet extends BaseServlet{
             }
             recordStr.append(submitOptions[i]);
         }
-        System.out.println(recordStr.toString());
         Problem problemById = problemService.getProblemById(problemId);
-        System.out.println(problemById.getAnswer().toString());
-        System.out.println(recordStr.toString());
         if(problemById.getAnswer().equals(recordStr.toString())) {
             correct = 1;
         }
@@ -52,20 +46,15 @@ public class RecordServlet extends BaseServlet{
         Integer studentId = WebUtils.parseInt(req.getParameter("submitStudentId"),0);
         Integer testId = WebUtils.parseInt(req.getParameter("submitTestId"),0);
         Integer problemId = WebUtils.parseInt(req.getParameter("submitProblemId"),0);
-        System.out.println(studentId);
-        System.out.println(testId);
-        System.out.println(problemId);
         Boolean existsRecord = recordService.existsRecord(studentId,testId,problemId);
         Problem problemById = problemService.getProblemById(problemId);
         Map<String,Object> resultMap = new HashMap<>();
-        System.out.println(existsRecord);
         resultMap.put("existsRecord",existsRecord);
         resultMap.put("problemById",problemById);
         Record nowRecord  = recordService.getRecordByStudentIdAndTestIdAndProblemId(studentId,testId,problemId);
         if(nowRecord!=null) {
             resultMap.put("correct",nowRecord.getCorrect());
         }
-        System.out.println(problemById);
         Gson gson = new Gson();
         resp.getWriter().write(gson.toJson(resultMap));
     }
@@ -75,7 +64,6 @@ public class RecordServlet extends BaseServlet{
         Integer testId = WebUtils.parseInt(req.getParameter("submitTestId"),0);
         Integer problemId = WebUtils.parseInt(req.getParameter("submitProblemId"),0);
         recordService.resetProblem(studentId,testId,problemId);
-        System.out.println(req.getHeader("Referer"));
         resp.sendRedirect(req.getHeader("Referer"));
     }
 }

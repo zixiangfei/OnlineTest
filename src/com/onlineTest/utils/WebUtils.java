@@ -1,40 +1,28 @@
 package com.onlineTest.utils;
 
 import com.google.gson.Gson;
-import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Map;
 
 public class WebUtils {
-    public static <T> T copyParamToBean(Map value, T bean) {
-        try {
-            System.out.println("注入之前："+bean);
-            BeanUtils.populate(bean,value);
-            System.out.println("注入之后："+bean);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return bean;
-    }
+    static final Log log = LogFactory.getLog(WebUtils.class);
 
     /**
      * 将字符串转换为int类型
-     * @param strInt
-     * @param defaultValue
-     * @return
+     *
+     * @param strInt       字符串
+     * @param defaultValue 默认值
+     * @return int
      */
-    public static int parseInt(String strInt,int defaultValue) {
+    public static int parseInt(String strInt, int defaultValue) {
         try {
             return Integer.parseInt(strInt);
         } catch (Exception e) {
-            e.printStackTrace();
+            return defaultValue;
         }
-        return defaultValue;
     }
 
     public static String getJSONString(Object o) {

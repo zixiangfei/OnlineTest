@@ -55,6 +55,7 @@ public class StudentApi extends BaseApi {
             try {
                 token = JwtTokenUtils.generateToken(map);
             } catch (JWTCreationException e) {
+                log.error("token生成失败, " + e.getMessage());
                 WebUtils.writeJSONString(resp, Result.error(ErrorCodeEnum.SYSTEM_ERROR.getCode(), "生成token失败"));
                 return;
             }

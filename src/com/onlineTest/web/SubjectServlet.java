@@ -28,7 +28,6 @@ public class SubjectServlet extends BaseServlet{
         page.setType("subject");
         page.setUrl("subjectServlet?action=pageSubject");
         req.setAttribute("page",page);
-        System.out.println(page);
         req.getRequestDispatcher("/pages/manager/manager-subject.jsp").forward(req,resp);
     }
 
@@ -37,7 +36,6 @@ public class SubjectServlet extends BaseServlet{
         String name = req.getParameter("insert-name");
         Integer pageNo = WebUtils.parseInt(req.getParameter("pageNo"),1);
         Integer pageSize = WebUtils.parseInt(req.getParameter("pageSize"), Page.page_size);
-        System.out.println(name);
         Integer modal = WebUtils.parseInt(req.getParameter("modal"),0);
         if(modal==1) {
             if(subjectService.existsSubjectName(name)) {
@@ -59,17 +57,14 @@ public class SubjectServlet extends BaseServlet{
         else {
             Integer modifyId = WebUtils.parseInt(req.getParameter("modifyId"),0);
             Subject subject = new Subject(modifyId,name);
-            System.out.println(subject);
             subjectService.updateSubjectById(subject);
             resp.sendRedirect(req.getContextPath()+"/subjectServlet?action=pageSubject&pageNo="+pageNo);
-
         }
 
     }
 
     protected void ajaxExistsSubjectName(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
-        System.out.println(name);
         Boolean existsSubjectName = subjectService.existsSubjectName(name);
         Map<String,Object> resultMap = new HashMap<String, Object>();
         resultMap.put("existsSubjectName",existsSubjectName);

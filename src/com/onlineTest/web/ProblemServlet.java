@@ -36,15 +36,11 @@ public class ProblemServlet extends BaseServlet{
         Integer pageNo = WebUtils.parseInt(req.getParameter("pageNo"),1);
         Integer pageSize = WebUtils.parseInt(req.getParameter("pageSize"), Page.page_size);
         Integer subjectId = WebUtils.parseInt(req.getParameter("searchSubjectId"),0);
-        System.out.println(subjectId);
         String describe = req.getParameter("title");
         if(describe==null) {
             describe="";
         }
-        System.out.println(describe);
         String type = req.getParameter("searchType");
-        System.out.println(subjectId);
-        System.out.println(type);
         Page<Problem> page = new Page<Problem>();
 
         page = problemService.pageByParameter(pageNo,pageSize,subjectId,describe,type);
@@ -80,13 +76,6 @@ public class ProblemServlet extends BaseServlet{
         if("判断".equals(type)) {
             answer = req.getParameter("bool");
         }
-        System.out.println(type);
-        System.out.println(subjectId);
-        System.out.println(describe);
-        System.out.println(analysis);
-        System.out.println(options);
-        System.out.println(answer);
-        System.out.println(modal);
         if(modal==1) {
             Problem problem = new Problem(null,describe,answer,subjectId,analysis,options,0,0,type);
 
