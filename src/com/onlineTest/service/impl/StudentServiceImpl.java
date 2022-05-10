@@ -5,6 +5,7 @@ import com.onlineTest.dao.impl.StudentDaoImpl;
 import com.onlineTest.pojo.Page;
 import com.onlineTest.pojo.Student;
 import com.onlineTest.service.StudentService;
+import com.onlineTest.utils.WebUtils;
 
 import java.util.List;
 
@@ -14,13 +15,13 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student loginStudent(String name, String password) {
-        return studentDao.queryByStudentNameAndPassword(name,password);
+        return studentDao.queryByStudentNameAndPassword(name, WebUtils.md5(password));
     }
 
     @Override
     public Boolean existStudentName(String name) {
         Student student = studentDao.queryByStudentName(name);
-        if(student==null) {
+        if (student == null) {
             return false;
         } else {
             return true;
@@ -29,7 +30,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void registStudent(Student student) {
-       studentDao.saveStudent(student);
+        student.setPassword(WebUtils.md5(student.getPassword()));
+        studentDao.saveStudent(student);
     }
 
     @Override
@@ -42,12 +44,12 @@ public class StudentServiceImpl implements StudentService {
         Page<Student> page = new Page<Student>();
         Integer totalCount = studentDao.queryTotalCount();
         page.setPageTotalCount(totalCount);
-        Integer pageTotal = totalCount / pageSize + (totalCount%pageSize==0? 0 : 1);
+        Integer pageTotal = totalCount / pageSize + (totalCount % pageSize == 0 ? 0 : 1);
         page.setPageTotal(pageTotal);
         page.setPageNo(pageNo);
         page.setPageSize(pageSize);
         Integer begin = (page.getPageNo() - 1) * page.getPageSize();
-        List<Student> students = studentDao.queryForPageItems(begin,pageSize);
+        List<Student> students = studentDao.queryForPageItems(begin, pageSize);
         page.setItems(students);
         return page;
     }

@@ -1,5 +1,6 @@
 package com.onlineTest.api;
 
+import cn.hutool.core.util.StrUtil;
 import com.onlineTest.common.Result;
 import com.onlineTest.pojo.Page;
 import com.onlineTest.pojo.Subject;
@@ -31,6 +32,10 @@ public class SubjectApi extends BaseApi {
 
     protected void add(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String name = req.getParameter("insert-name");
+        if (StrUtil.hasBlank(name)) {
+            WebUtils.writeJSONString(resp, Result.requestParameterError());
+            return;
+        }
         Integer pageNo = WebUtils.parseInt(req.getParameter("pageNo"), 1);
         Integer pageSize = WebUtils.parseInt(req.getParameter("pageSize"), Page.page_size);
         Page<Subject> page = subjectService.page(pageNo, pageSize);
@@ -54,8 +59,26 @@ public class SubjectApi extends BaseApi {
 
     protected void getAllSubjects(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         List<Subject> subjects = subjectService.allSubject();
-        Map<String,Object> resultMap = new HashMap<String, Object>();
-        resultMap.put("subjects",subjects);
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        resultMap.put("subjects", subjects);
         WebUtils.writeJSONString(resp, Result.success(resultMap));
+    }
+
+    protected void showSubjectById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Integer subjectId = WebUtils.parseInt(req.getParameter("subjectId"), 0);
+        Subject subject = subjectService.getSubjectById(subjectId);
+        WebUtils.writeJSONString(resp, subject);
+    }
+
+    protected void modify(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String name = req.getParameter("insert-name");
+        if (StrUtil.hasBlank(name)) {
+            WebUtils.writeJSONString(resp, Result.requestParameterError());
+            return;
+        }
+        Integer modifyId = WebUtils.parseInt(req.getParameter("modifyId"), 0);
+        Subject subject = new Subject(modifyId, name);
+        subjectService.updateSubjectById(subject);
+        WebUtils.writeJSONString(resp, Result.success(null));
     }
 }

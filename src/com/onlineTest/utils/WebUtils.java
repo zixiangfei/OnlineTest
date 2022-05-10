@@ -1,6 +1,8 @@
 package com.onlineTest.utils;
 
+import cn.hutool.crypto.SecureUtil;
 import com.google.gson.Gson;
+import com.onlineTest.common.Constant;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -32,5 +34,9 @@ public class WebUtils {
 
     public static void writeJSONString(HttpServletResponse resp, Object o) throws IOException {
         resp.getWriter().write(getJSONString(o));
+    }
+
+    public static String md5(String text) {
+        return SecureUtil.md5(Constant.SECRET + text);
     }
 }

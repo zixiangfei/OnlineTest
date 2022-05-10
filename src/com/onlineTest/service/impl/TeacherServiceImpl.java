@@ -5,6 +5,7 @@ import com.onlineTest.dao.impl.TeacherDaoImpl;
 import com.onlineTest.pojo.Page;
 import com.onlineTest.pojo.Teacher;
 import com.onlineTest.service.TeacherService;
+import com.onlineTest.utils.WebUtils;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public Teacher loginTeacher(String name, String password) {
-        return teacherDao.queryByTeacherNameAndPassword(name,password);
+        return teacherDao.queryByTeacherNameAndPassword(name, WebUtils.md5(password));
     }
 
     @Override
@@ -30,6 +31,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public void registTeacher(Teacher teacher) {
+        teacher.setPassword(WebUtils.md5(teacher.getPassword()));
         teacherDao.saveTeacher(teacher);
     }
 

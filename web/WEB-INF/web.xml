@@ -193,4 +193,22 @@
         <servlet-name>SubjectApi</servlet-name>
         <url-pattern>/api/v1/subject</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RankApi</servlet-name>
+        <servlet-class>com.onlineTest.api.RankApi</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RankApi</servlet-name>
+        <url-pattern>/api/v1/rank</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RecordApi</servlet-name>
+        <servlet-class>com.onlineTest.api.RecordApi</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RecordApi</servlet-name>
+        <url-pattern>/api/v1/record</url-pattern>
+    </servlet-mapping>
 </web-app>

@@ -1,5 +1,6 @@
 package com.onlineTest.api;
 
+import cn.hutool.core.util.StrUtil;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.onlineTest.common.Result;
 import com.onlineTest.enums.ErrorCodeEnum;
@@ -21,6 +22,10 @@ public class AdminApi extends BaseApi {
     protected void loginAdmin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String name = req.getParameter("username");
         String password = req.getParameter("password");
+        if (StrUtil.hasBlank(name) || StrUtil.hasBlank(password)) {
+            WebUtils.writeJSONString(resp, Result.requestParameterError("用户名或密码不能空"));
+            return;
+        }
         Admin admin = adminService.loginAdmin(name,password);
         if (admin == null) {
             // 登录失败

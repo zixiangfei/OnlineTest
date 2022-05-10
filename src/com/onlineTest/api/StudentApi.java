@@ -1,11 +1,15 @@
 package com.onlineTest.api;
 
+import cn.hutool.core.util.StrUtil;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.onlineTest.common.Result;
 import com.onlineTest.enums.ErrorCodeEnum;
+import com.onlineTest.pojo.Class;
 import com.onlineTest.pojo.Page;
 import com.onlineTest.pojo.Student;
+import com.onlineTest.service.ClassService;
 import com.onlineTest.service.StudentService;
+import com.onlineTest.service.impl.ClassServiceImpl;
 import com.onlineTest.service.impl.StudentServiceImpl;
 import com.onlineTest.utils.JwtTokenUtils;
 import com.onlineTest.utils.WebUtils;
@@ -21,6 +25,7 @@ import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
 
 public class StudentApi extends BaseApi {
     StudentService studentService = new StudentServiceImpl();
+    ClassService classService = new ClassServiceImpl();
 
     protected void getAllStudent(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         List<Student> students = studentService.queryAllStudent();
@@ -43,6 +48,10 @@ public class StudentApi extends BaseApi {
     protected void loginStudent(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        if (StrUtil.hasBlank(username) || StrUtil.hasBlank(password)) {
+            WebUtils.writeJSONString(resp, Result.requestParameterError("用户名或密码不能为空"));
+            return;
+        }
         Student student = studentService.loginStudent(username, password);
         if (student == null) {
             WebUtils.writeJSONString(resp, Result.error(ErrorCodeEnum.REQUEST_PARAMS_ERROR.getCode(), "用户名或密码错误"));
@@ -65,9 +74,25 @@ public class StudentApi extends BaseApi {
 
     protected void registStudent(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String username = req.getParameter("username");
+        if (StrUtil.hasBlank(username)) {
+            WebUtils.writeJSONString(resp, Result.requestParameterError("用户名不能为空"));
+            return;
+        }
         String password = req.getParameter("password");
+        if (StrUtil.hasBlank(password)) {
+            WebUtils.writeJSONString(resp, Result.requestParameterError("密码不能为空"));
+            return;
+        }
         String email = req.getParameter("email");
+        if (StrUtil.hasBlank(email)) {
+            WebUtils.writeJSONString(resp, Result.requestParameterError("邮箱不能为空"));
+            return;
+        }
         String code = req.getParameter("code");
+        if (StrUtil.hasBlank(code)) {
+            WebUtils.writeJSONString(resp, Result.requestParameterError("验证码不能为空"));
+            return;
+        }
         String kaptcha = (String) req.getSession().getAttribute(KAPTCHA_SESSION_KEY);
         req.getSession().removeAttribute(KAPTCHA_SESSION_KEY);
         if (kaptcha != null && kaptcha.equals(code)) {
@@ -80,5 +105,27 @@ public class StudentApi extends BaseApi {
         } else {
             WebUtils.writeJSONString(resp, Result.error(ErrorCodeEnum.REQUEST_PARAMS_ERROR.getCode(), "验证码错误"));
         }
+    }
+
+    protected void showStudentById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Integer id = WebUtils.parseInt(req.getParameter("id"), 0);
+        Student student = studentService.getStudentById(id);
+        WebUtils.writeJSONString(resp, student);
+    }
+
+    protected void modifyStudent(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Integer classId = WebUtils.parseInt(req.getParameter("classId"), 0);
+        Class newClass = classService.getClassById(classId);
+        String newName = req.getParameter("insert-name");
+        Integer modifyId = WebUtils.parseInt(req.getParameter("modifyId"), 0);
+        Student studentById = studentService.getStudentById(modifyId);
+        Integer oldClassId = WebUtils.parseInt(studentById.getClassId(), 0);
+        if (oldClassId != 0) {
+            Class oldClass = classService.getClassById(oldClassId);
+            classService.modifyClassById(new Class(oldClass.getName(), oldClassId, oldClass.getTeacherId(), oldClass.getImage(), oldClass.getMembers() - 1));
+        }
+        classService.modifyClassById(new Class(newClass.getName(), newClass.getId(), newClass.getTeacherId(), newClass.getImage(), newClass.getMembers() + 1));
+        studentService.modifyStudentById(new Student(studentById.getId(), studentById.getUsername(), studentById.getPassword(), studentById.getEmail(), classId.toString(), newName));
+        WebUtils.writeJSONString(resp, Result.success(null));
     }
 }

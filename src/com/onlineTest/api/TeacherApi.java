@@ -1,5 +1,6 @@
 package com.onlineTest.api;
 
+import cn.hutool.core.util.StrUtil;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.onlineTest.common.Result;
 import com.onlineTest.enums.ErrorCodeEnum;
@@ -36,6 +37,10 @@ public class TeacherApi extends BaseApi {
     protected void loginTeacher(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        if (StrUtil.hasBlank(username) || StrUtil.hasBlank(password)) {
+            WebUtils.writeJSONString(resp, Result.requestParameterError("用户名或密码不能为空"));
+            return;
+        }
         Teacher teacher = teacherService.loginTeacher(username, password);
         if (teacher == null) {
             resp.getWriter().write(WebUtils.getJSONString(Result.error(ErrorCodeEnum.REQUEST_PARAMS_ERROR.getCode(), "用户名或密码错误")));
@@ -58,9 +63,25 @@ public class TeacherApi extends BaseApi {
 
     protected void registTeacher(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String username = req.getParameter("username");
+        if (StrUtil.hasBlank(username)) {
+            WebUtils.writeJSONString(resp, Result.requestParameterError("用户名不能为空"));
+            return;
+        }
         String password = req.getParameter("password");
+        if (StrUtil.hasBlank(password)) {
+            WebUtils.writeJSONString(resp, Result.requestParameterError("密码不能为空"));
+            return;
+        }
         String email = req.getParameter("email");
+        if (StrUtil.hasBlank(email)) {
+            WebUtils.writeJSONString(resp, Result.requestParameterError("邮箱不能为空"));
+            return;
+        }
         String code = req.getParameter("code");
+        if (StrUtil.hasBlank(code)) {
+            WebUtils.writeJSONString(resp, Result.requestParameterError("验证码不能为空"));
+            return;
+        }
         String kaptcha = (String) req.getSession().getAttribute(KAPTCHA_SESSION_KEY);
         req.getSession().removeAttribute(KAPTCHA_SESSION_KEY);
         if (kaptcha != null && kaptcha.equals(code)) {
@@ -80,5 +101,11 @@ public class TeacherApi extends BaseApi {
         Map<String,Object> resultMap = new HashMap<String, Object>();
         resultMap.put("teachers",teachers);
         WebUtils.writeJSONString(resp, Result.success(resultMap));
+    }
+
+    protected void showTeacherById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Integer id = WebUtils.parseInt(req.getParameter("id"),0);
+        Teacher teacher = teacherService.getTeacherById(id);
+        WebUtils.writeJSONString(resp, Result.success(teacher));
     }
 }
