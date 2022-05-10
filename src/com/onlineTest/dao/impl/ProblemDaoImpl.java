@@ -2,10 +2,13 @@ package com.onlineTest.dao.impl;
 
 import com.onlineTest.dao.ProblemDao;
 import com.onlineTest.pojo.Problem;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.List;
 
 public class ProblemDaoImpl extends BaseDao implements ProblemDao {
+    protected final Log log = LogFactory.getLog(getClass());
     @Override
     public Integer queryForPageTotalCount() {
         String sql = "select count(*) from problems";
@@ -67,7 +70,7 @@ public class ProblemDaoImpl extends BaseDao implements ProblemDao {
             sql += " `describe` like '%"+describe+"%' ";
         }
         Number count = (Number) queryForSingleValue(sql);
-        System.out.println(sql);
+        log.debug(sql);
         return count.intValue();
     }
 
@@ -107,7 +110,7 @@ public class ProblemDaoImpl extends BaseDao implements ProblemDao {
             sql += " `describe` like '%"+describe+"%' ";
         }
         sql += " limit ?, ?";
-        System.out.println(sql);
+        log.debug(sql);
         return queryForList(Problem.class,sql,begin,pageSize);
     }
 

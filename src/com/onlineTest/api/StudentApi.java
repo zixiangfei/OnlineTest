@@ -110,7 +110,7 @@ public class StudentApi extends BaseApi {
     protected void showStudentById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Integer id = WebUtils.parseInt(req.getParameter("id"), 0);
         Student student = studentService.getStudentById(id);
-        WebUtils.writeJSONString(resp, student);
+        WebUtils.writeJSONString(resp, Result.success(student));
     }
 
     protected void modifyStudent(HttpServletRequest req, HttpServletResponse resp) throws IOException {

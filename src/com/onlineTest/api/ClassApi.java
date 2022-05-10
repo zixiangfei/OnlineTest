@@ -120,6 +120,6 @@ public class ClassApi extends BaseApi {
     protected void showClassById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Integer id = WebUtils.parseInt(req.getParameter("id"),0);
         Class classById = classService.getClassById(id);
-        WebUtils.writeJSONString(resp, classById);
+        WebUtils.writeJSONString(resp, Result.success(classById));
     }
 }
