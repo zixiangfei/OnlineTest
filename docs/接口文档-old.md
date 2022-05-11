@@ -1,4 +1,6 @@
-# 接口文档
+# OnlineTest接口文档
+
+<font color="red">该文档为旧版本的接口文档，新的接口文档请移步： 链接: https://www.apifox.cn/apidoc/shared-6da5dfc8-3950-4e90-bec8-e298bd077fb9  访问密码 : syl6PD1a </font>
 
 OnlineTest的接口文档
 
@@ -621,8 +623,3 @@ Query参数
     }
 }
 ```
-
-
-
-## 题目
-

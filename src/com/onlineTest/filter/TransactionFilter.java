@@ -1,11 +1,14 @@
 package com.onlineTest.filter;
 
 import com.onlineTest.utils.JdbcUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.*;
 import java.io.IOException;
 
 public class TransactionFilter implements Filter {
+    protected final Log log = LogFactory.getLog(getClass());
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -18,8 +21,7 @@ public class TransactionFilter implements Filter {
             JdbcUtils.commitAndClose();
         } catch (Exception e) {
             JdbcUtils.rollbackAndClose();
-            e.printStackTrace();
-            throw new RuntimeException(e);
+            log.error(e.getMessage());
         }
     }
 

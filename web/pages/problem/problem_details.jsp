@@ -45,9 +45,14 @@
             });
 
             $("#problem-submit").click(function () {
-                var flag = false
-                let answer = $("[name='submitOptionButton']").attr("value");
-                if(answer.length===0) {
+                var flag = true;
+                console.log(1);
+                console.log($("[name='submitOption']"));
+                let $name = $("[name='submitOption']");
+                if(!$("#optionA").prop("checked")&&!$("#optionB").prop("checked")&&!$("#optionC").prop("checked")&&!$("#optionD").prop("checked")) {
+                    flag=false;
+                }
+                if(!flag) {
                     $("#submit-alert").attr("style","display:block");
                     $("#submit-alert").text("还未选择答案");
                     return false;
@@ -114,25 +119,25 @@
                             <div class="col-xs-3">
                                 <button type="button" class="btn btn-secondary" name="submitOptionButton">
                                     A
-                                    <input type="checkbox" name="submitOption" value="A" style="display: none">
+                                    <input type="checkbox" name="submitOption" id="optionA" value="A" style="display: none">
                                 </button>
                             </div>
                             <div class="col-xs-3">
                                 <button type="button" class="btn btn-secondary" name="submitOptionButton">
                                     B
-                                    <input type="checkbox" name="submitOption" value="B" style="display: none">
+                                    <input type="checkbox" name="submitOption" id="optionB" value="B" style="display: none">
                                 </button>
                             </div>
                             <div class="col-xs-3">
                                 <button type="button" class="btn btn-secondary" name="submitOptionButton">
                                     C
-                                    <input type="checkbox" name="submitOption" value="C" style="display: none">
+                                    <input type="checkbox" name="submitOption" id="optionC" value="C" style="display: none">
                                 </button>
                             </div>
                             <div class="col-xs-3">
                                 <button type="button" class="btn btn-secondary" name="submitOptionButton">
                                     D
-                                    <input type="checkbox" name="submitOption" value="D" style="display: none">
+                                    <input type="checkbox" name="submitOption" id="optionD" value="D" style="display: none">
                                 </button>
                             </div>
                         </div>

@@ -8,6 +8,8 @@ import com.onlineTest.config.ApiPermissionConfig;
 import com.onlineTest.enums.ErrorCodeEnum;
 import com.onlineTest.utils.JwtTokenUtils;
 import com.onlineTest.utils.WebUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class ApiFilter implements Filter {
+    protected final Log log = LogFactory.getLog(getClass());
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -41,6 +45,7 @@ public class ApiFilter implements Filter {
                 try {
                     jwt = JwtTokenUtils.verifyToken(token);
                 } catch (JWTVerificationException e) {
+                    log.error("token校验失败, " + e.getMessage());
                     WebUtils.writeJSONString(resp, Result.error(ErrorCodeEnum.PERMISSION_ERROR.getCode(), ErrorCodeEnum.PERMISSION_ERROR.getMessage()));
                     return;
                 }

@@ -16,7 +16,7 @@ public class ManagerFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         String type =(String) req.getSession().getAttribute("type");
-        if(type!=null&&"admin".equals(type)) {
+        if("admin".equals(type)) {
             filterChain.doFilter(req,resp);
         }
         else {

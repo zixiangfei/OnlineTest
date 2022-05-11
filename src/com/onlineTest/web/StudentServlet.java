@@ -87,7 +87,6 @@ public class StudentServlet extends BaseServlet{
         page.setType("student");
         page.setUrl("studentServlet?action=pageStudent");
         req.setAttribute("page",page);
-        System.out.println(page);
         req.getRequestDispatcher("/pages/manager/manager-student.jsp").forward(req,resp);
     }
 
@@ -107,8 +106,6 @@ public class StudentServlet extends BaseServlet{
         Integer modifyId = WebUtils.parseInt(req.getParameter("modifyId"),0);
         Student studentById = studentService.getStudentById(modifyId);
         Integer oldClassId = WebUtils.parseInt(studentById.getClassId(),0);
-        System.out.println(oldClassId);
-        System.out.println(classId);
         if(oldClassId!=null&&oldClassId != 0) {
             Class oldClass = classService.getClassById(oldClassId);
             classService.modifyClassById(new Class(oldClass.getName(),oldClassId,oldClass.getTeacherId(),oldClass.getImage(),oldClass.getMembers()-1));

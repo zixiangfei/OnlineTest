@@ -144,19 +144,12 @@ public class TestServlet  extends BaseServlet{
         String lengthTimeStr = req.getParameter("testLength");
         String testName = req.getParameter("testName");
         String contestLengthTimeStr = "1970-01-01 "+lengthTimeStr;
-//        System.out.println(contestStartTimeStr);
-//        System.out.println(classId);
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         Timestamp startTimestamp = DateUtils.stringToTimestamp(contestStartTimeStr,format);
-//        System.out.println(startTimestamp);
         DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         Timestamp lengthTimestamp = DateUtils.stringToTimestamp(contestLengthTimeStr,format1);
-//        System.out.println(lengthTimestamp);
-//        System.out.println(startTimestamp.getTime());
-//        System.out.println(lengthTimestamp.getTime());
         Integer lengthTime = Math.toIntExact(lengthTimestamp.getTime() + 28800000);
         Timestamp endTimestamp = new Timestamp(startTimestamp.getTime()+lengthTime);
-//        System.out.println(endTimestamp);
         String[] addProblemIds = req.getParameterValues("addProblemId");
         StringBuilder problemIds = new StringBuilder();
         for (String addProblemId : addProblemIds) {
@@ -164,9 +157,7 @@ public class TestServlet  extends BaseServlet{
             problemIds.append(",");
         }
         Test test = new Test(null,testName,lengthTime,startTimestamp,problemIds.toString(),classId);
-        System.out.println(test);
         testService.addNewContest(test);
-
         resp.sendRedirect(req.getContextPath()+"/classServlet?action=showClassDetails&type=0&classId="+classId);
     }
 

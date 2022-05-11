@@ -17,9 +17,6 @@ public class AdminServlet extends BaseServlet{
         String name = req.getParameter("username");
         String password = req.getParameter("password");
         Admin admin = adminService.loginAdmin(name,password);
-        System.out.println(name);
-        System.out.println(password);
-        System.out.println(admin);
         if(admin==null) {
             req.setAttribute("msg","用户名或密码错误");
             req.setAttribute("username",name);

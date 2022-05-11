@@ -74,7 +74,6 @@ public class TeacherServlet extends BaseServlet{
         page.setType("teacher");
         page.setUrl("teacherServlet?action=pageTeacher");
         req.setAttribute("page",page);
-        System.out.println(page);
         req.getRequestDispatcher("/pages/manager/manager-teacher.jsp").forward(req,resp);
     }
 

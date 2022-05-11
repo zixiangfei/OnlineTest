@@ -1,5 +1,8 @@
 package com.onlineTest.web;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +12,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public abstract class BaseServlet extends HttpServlet {
+    protected final Log log = LogFactory.getLog(getClass());
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req,resp);
@@ -19,14 +24,11 @@ public abstract class BaseServlet extends HttpServlet {
         resp.setContentType("text/html;charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
-        System.out.println(action);
         try {
             Method method = this.getClass().getDeclaredMethod(action,HttpServletRequest.class,HttpServletResponse.class);
-            System.out.println(method);
             method.invoke(this,req,resp);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-            throw  new RuntimeException(e);
+            log.error(e.getMessage());
         }
     }
 }
