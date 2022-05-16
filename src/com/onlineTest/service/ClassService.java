@@ -19,4 +19,6 @@ public interface ClassService {
     void modifyClassById(Class modifyClass);
 
     List<Class> getClassByTeacherId(Integer teacherId);
+
+    Class getClassByStudentId(Integer studentId);
 }

@@ -1,16 +1,21 @@
 package com.onlineTest.service.impl;
 
 import com.onlineTest.dao.ClassDao;
+import com.onlineTest.dao.StudentDao;
 import com.onlineTest.dao.impl.ClassDaoImpl;
+import com.onlineTest.dao.impl.StudentDaoImpl;
 import com.onlineTest.pojo.Class;
 import com.onlineTest.pojo.Page;
+import com.onlineTest.pojo.Student;
 import com.onlineTest.service.ClassService;
+import com.onlineTest.utils.WebUtils;
 
 import java.util.List;
 
 public class ClassServiceImpl implements ClassService {
 
     ClassDao classDao = new ClassDaoImpl();
+    StudentDao studentDao = new StudentDaoImpl();
 
     @Override
     public Page<Class> page(Integer pageNo, Integer pageSize) {
@@ -66,5 +71,15 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public List<Class> getClassByTeacherId(Integer teacherId) {
         return classDao.queryByTeacherId(teacherId);
+    }
+
+    @Override
+    public Class getClassByStudentId(Integer studentId) {
+        Student student = studentDao.queryById(studentId);
+        if (student.getClassId() == null) {
+            return null;
+        } else {
+            return getClassById(WebUtils.parseInt(student.getClassId(), 0));
+        }
     }
 }

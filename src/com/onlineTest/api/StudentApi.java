@@ -21,8 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
-
 public class StudentApi extends BaseApi {
     StudentService studentService = new StudentServiceImpl();
     ClassService classService = new ClassServiceImpl();
@@ -68,7 +66,10 @@ public class StudentApi extends BaseApi {
                 WebUtils.writeJSONString(resp, Result.error(ErrorCodeEnum.SYSTEM_ERROR.getCode(), "生成token失败"));
                 return;
             }
-            WebUtils.writeJSONString(resp, Result.success(token));
+            map.put("token", token);
+            student.setPassword(null);
+            map.put("userInfo", student);
+            WebUtils.writeJSONString(resp, Result.success(map));
         }
     }
 
@@ -93,8 +94,7 @@ public class StudentApi extends BaseApi {
             WebUtils.writeJSONString(resp, Result.requestParameterError("验证码不能为空"));
             return;
         }
-        String kaptcha = (String) req.getSession().getAttribute(KAPTCHA_SESSION_KEY);
-        req.getSession().removeAttribute(KAPTCHA_SESSION_KEY);
+        String kaptcha = WebUtils.getCaptcha(req);
         if (kaptcha != null && kaptcha.equals(code)) {
             if (studentService.existStudentName(username)) {
                 WebUtils.writeJSONString(resp, Result.error(ErrorCodeEnum.REQUEST_PARAMS_ERROR.getCode(), "账号已存在"));

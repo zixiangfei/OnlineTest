@@ -57,7 +57,10 @@ public class TeacherApi extends BaseApi {
                 resp.getWriter().write(WebUtils.getJSONString(Result.error(ErrorCodeEnum.SYSTEM_ERROR.getCode(), "生成token失败")));
                 return;
             }
-            resp.getWriter().write(WebUtils.getJSONString(Result.success(token)));
+            map.put("token", token);
+            teacher.setPassword(null);
+            map.put("userInfo", teacher);
+            resp.getWriter().write(WebUtils.getJSONString(Result.success(map)));
         }
     }
 
@@ -82,8 +85,7 @@ public class TeacherApi extends BaseApi {
             WebUtils.writeJSONString(resp, Result.requestParameterError("验证码不能为空"));
             return;
         }
-        String kaptcha = (String) req.getSession().getAttribute(KAPTCHA_SESSION_KEY);
-        req.getSession().removeAttribute(KAPTCHA_SESSION_KEY);
+        String kaptcha = WebUtils.getCaptcha(req);
         if (kaptcha != null && kaptcha.equals(code)) {
             if(teacherService.existsTeacherName(username)) {
                 WebUtils.writeJSONString(resp, Result.error(ErrorCodeEnum.REQUEST_PARAMS_ERROR.getCode(), "账号已存在"));
