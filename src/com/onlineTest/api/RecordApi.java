@@ -13,11 +13,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RecordApi extends BaseApi {
     ProblemService problemService = new ProblemServiceImpl();
     RecordService recordService = new RecordServiceImpl();
+
+    protected void getProblemIds(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Integer studentId = WebUtils.parseInt(req.getParameter("studentId"), 0);
+        Integer correct = WebUtils.parseInt(req.getParameter("correct"), 0);
+        List<Record> problemIds = recordService.getProblemIds(studentId, correct);
+        WebUtils.writeJSONString(resp, Result.success(problemIds));
+    }
 
     protected void submitRecord(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Integer studentId = WebUtils.parseInt(req.getParameter("submitStudentId"), 0);

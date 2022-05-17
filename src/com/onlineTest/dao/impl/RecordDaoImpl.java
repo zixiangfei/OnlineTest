@@ -13,6 +13,12 @@ public class RecordDaoImpl extends BaseDao implements RecordDao {
     }
 
     @Override
+    public List<Record> queryProblemIds(Integer studentId, Integer correct) {
+        String sql = "select problemId from records where studentId = ? and correct = ? group by problemId";
+        return queryForList(Record.class, sql, studentId, correct);
+    }
+
+    @Override
     public void saveRecord(Record record) {
         String sql = "insert into records(`studentId`,`record`,`testId`,`problemId`,`correct`) values(?, ?, ?, ?, ?)";
         update(sql,record.getStudentId(),record.getRecord(),record.getTestId(),record.getProblemId(),record.getCorrect());

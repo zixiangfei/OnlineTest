@@ -119,5 +119,11 @@ public class ProblemDaoImpl extends BaseDao implements ProblemDao {
         String sql = "update problems set `describe` = ? , `subjectId` = ? , `analysis` = ? , `options` = ? , `type`  = ? where id = ?";
         update(sql,problem.getDescribe(),problem.getSubjectId(),problem.getAnalysis(),problem.getOptions(),problem.getType(),problem.getId());
     }
+
+    @Override
+    public List<Problem> getAllProblems() {
+        String sql = "select * from problems";
+        return queryForList(Problem.class, sql);
+    }
 }
 

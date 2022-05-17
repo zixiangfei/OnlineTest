@@ -64,4 +64,9 @@ public class ProblemServiceImpl implements ProblemService {
     public void updateProblemById(Problem problem) {
         problemDao.updateProblemById(problem);
     }
+
+    @Override
+    public List<Problem> getAllProblems() {
+        return problemDao.getAllProblems();
+    }
 }

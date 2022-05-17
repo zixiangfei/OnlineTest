@@ -7,6 +7,8 @@ import java.util.List;
 public interface RecordService {
     List<Record> getRecordByTestId(Integer testId);
 
+    List<Record> getProblemIds(Integer studentId, Integer correct);
+
     void submitRecord(Record record);
 
     Boolean existsRecord(Integer studentId, Integer testId, Integer problemId);
