@@ -14,7 +14,7 @@ public class RecordDaoImpl extends BaseDao implements RecordDao {
 
     @Override
     public List<Record> queryProblemIds(Integer studentId, Integer correct) {
-        String sql = "select problemId from records where studentId = ? and correct = ? group by problemId";
+        String sql = "select problemId from records where studentId = ? and correct = ? and testId = 0 group by problemId";
         return queryForList(Record.class, sql, studentId, correct);
     }
 

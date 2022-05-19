@@ -22,4 +22,10 @@ public interface StudentService {
     Student getStudentById(Integer studentId);
 
     void modifyStudentById(Student student);
+
+    void modifyStudentPassword(Integer studentId, String password);
+
+    void modifyStudentEmail(Integer studentId, String email);
+
+    void modifyStudentNikeName(Integer studentId, String nikename);
 }

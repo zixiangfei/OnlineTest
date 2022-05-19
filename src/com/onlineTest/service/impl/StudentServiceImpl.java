@@ -68,4 +68,19 @@ public class StudentServiceImpl implements StudentService {
     public void modifyStudentById(Student student) {
         studentDao.modifyStudentById(student);
     }
+
+    @Override
+    public void modifyStudentPassword(Integer studentId, String password) {
+        studentDao.updateStudentPassword(studentId, WebUtils.md5(password));
+    }
+
+    @Override
+    public void modifyStudentEmail(Integer studentId, String email) {
+        studentDao.updateStudentEmail(studentId, email);
+    }
+
+    @Override
+    public void modifyStudentNikeName(Integer studentId, String nikename) {
+        studentDao.updateStudentNikeName(studentId, nikename);
+    }
 }

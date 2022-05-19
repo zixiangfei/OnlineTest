@@ -128,4 +128,37 @@ public class StudentApi extends BaseApi {
         studentService.modifyStudentById(new Student(studentById.getId(), studentById.getUsername(), studentById.getPassword(), studentById.getEmail(), classId.toString(), newName));
         WebUtils.writeJSONString(resp, Result.success(null));
     }
+
+    protected void modifyStudentPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Integer studentId = WebUtils.parseInt(req.getParameter("studentId"), 0);
+        String password = req.getParameter("password");
+        if (StrUtil.hasBlank(password)) {
+            WebUtils.writeJSONString(resp, Result.requestParameterError("密码不能为空"));
+            return;
+        }
+        studentService.modifyStudentPassword(studentId, password);
+        WebUtils.writeJSONString(resp, Result.success(null));
+    }
+
+    protected void modifyStudentEmail(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Integer studentId = WebUtils.parseInt(req.getParameter("studentId"), 0);
+        String email = req.getParameter("email");
+        if (StrUtil.hasBlank(email)) {
+            WebUtils.writeJSONString(resp, Result.requestParameterError("邮箱不能为空"));
+            return;
+        }
+        studentService.modifyStudentEmail(studentId, email);
+        WebUtils.writeJSONString(resp, Result.success(null));
+    }
+
+    protected void modifyStudentNikename(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Integer studentId = WebUtils.parseInt(req.getParameter("studentId"), 0);
+        String nikename = req.getParameter("nikename");
+        if (StrUtil.hasBlank(nikename)) {
+            WebUtils.writeJSONString(resp, Result.requestParameterError("昵称不能为空"));
+            return;
+        }
+        studentService.modifyStudentNikeName(studentId, nikename);
+        WebUtils.writeJSONString(resp, Result.success(null));
+    }
 }
