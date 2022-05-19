@@ -91,6 +91,7 @@ public class TestApi extends BaseApi {
         map.put("testProblemStatusList", testProblemStatusList);
         map.put("recordList", recordList);
         map.put("curTest", test);
+        map.put("startTime",test.getStartTime().getTime());
         map.put("testProblemList", testProblemList);
         map.put("rankItemList", rankItemList);
         WebUtils.writeJSONString(resp, Result.success(map));
