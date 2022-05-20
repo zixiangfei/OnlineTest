@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ProblemApi extends BaseApi {
@@ -24,6 +25,11 @@ public class ProblemApi extends BaseApi {
         page.setType("problem");
         page.setUrl("problemServlet?action=pageProblem");
         WebUtils.writeJSONString(resp, Result.success(page));
+    }
+
+    protected void getAllProblems(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        List<Problem> problems = problemService.getAllProblems();
+        WebUtils.writeJSONString(resp, Result.success(problems));
     }
 
     protected void searchProblem(HttpServletRequest req, HttpServletResponse resp) throws IOException {

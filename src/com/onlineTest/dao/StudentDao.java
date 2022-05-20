@@ -23,4 +23,11 @@ public interface StudentDao {
     Student queryById(Integer studentId);
 
     void modifyStudentById(Student student);
+
+    void updateStudentPassword(Integer studentId, String password);
+
+    void updateStudentEmail(Integer studentId, String email);
+
+    void updateStudentNikeName(Integer studentId, String nikename);
+
 }

@@ -17,6 +17,7 @@ public class ProblemServiceImpl implements ProblemService {
         Page<Problem> page = new Page<Problem>();
 
         Integer pageTotalCount = problemDao.queryForPageTotalCount();
+        page.setPageTotalCount(pageTotalCount);
         Integer pageTotal = pageTotalCount / pageSize + (pageTotalCount % pageSize == 0 ? 0 : 1);
         page.setPageTotal(pageTotal);
         page.setPageNo(pageNo);
@@ -45,6 +46,7 @@ public class ProblemServiceImpl implements ProblemService {
         Page<Problem> page = new Page<Problem>();
 
         Integer pageTotalCount = problemDao.queryForPageTotalCountByParameter(subjectId,describe,type);
+        page.setPageTotalCount(pageTotalCount);
         Integer pageTotal = pageTotalCount / pageSize + (pageTotalCount % pageSize == 0 ? 0 : 1);
         page.setPageTotal(pageTotal);
         page.setPageNo(pageNo);
@@ -61,5 +63,10 @@ public class ProblemServiceImpl implements ProblemService {
     @Override
     public void updateProblemById(Problem problem) {
         problemDao.updateProblemById(problem);
+    }
+
+    @Override
+    public List<Problem> getAllProblems() {
+        return problemDao.getAllProblems();
     }
 }

@@ -6,10 +6,31 @@ import com.onlineTest.common.Constant;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class WebUtils {
+    private static final Map<String, String> CAPTCHA_MAP = new ConcurrentHashMap<>();
+
+    public static void putCaptcha(String key, String code) {
+        if ("0:0:0:0:0:0:0:1".equals(key)) {
+            CAPTCHA_MAP.put("127.0.0.1", code);
+        }
+        CAPTCHA_MAP.put(key, code);
+    }
+
+    public static String getCaptcha(String key) {
+        return CAPTCHA_MAP.get(key);
+    }
+
+    public static String getCaptcha(HttpServletRequest req) {
+        String key = NetworkUtils.getIpAddress(req);
+        return getCaptcha(key);
+    }
+
     static final Log log = LogFactory.getLog(WebUtils.class);
 
     /**

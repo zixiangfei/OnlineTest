@@ -43,7 +43,10 @@ public class AdminApi extends BaseApi {
                 resp.getWriter().write(WebUtils.getJSONString(Result.error(ErrorCodeEnum.SYSTEM_ERROR.getCode(), "生成token失败")));
                 return;
             }
-            resp.getWriter().write(WebUtils.getJSONString(Result.success(token)));
+            map.put("token", token);
+            admin.setPassword(null);
+            map.put("userInfo", admin);
+            resp.getWriter().write(WebUtils.getJSONString(Result.success(map)));
         }
     }
 

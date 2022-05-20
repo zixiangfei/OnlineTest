@@ -20,4 +20,5 @@ public interface ProblemDao {
 
     void updateProblemById(Problem problem);
 
+    List<Problem> getAllProblems();
 }

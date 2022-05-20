@@ -32,6 +32,15 @@
     </filter-mapping>
 
     <servlet>
+        <servlet-name>CaptchaServlet</servlet-name>
+        <servlet-class>com.onlineTest.web.CaptchaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CaptchaServlet</servlet-name>
+        <url-pattern>/captcha.jpg</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>KaptchaServlet</servlet-name>
         <servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
     </servlet>
@@ -39,6 +48,7 @@
         <servlet-name>KaptchaServlet</servlet-name>
         <url-pattern>/kaptcha.jpg</url-pattern>
     </servlet-mapping>
+
 
     <servlet>
         <servlet-name>AdminServlet</servlet-name>
