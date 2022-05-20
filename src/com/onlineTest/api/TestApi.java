@@ -2,6 +2,7 @@ package com.onlineTest.api;
 
 import com.onlineTest.common.Result;
 import com.onlineTest.pojo.*;
+import com.onlineTest.pojo.Record;
 import com.onlineTest.service.ProblemService;
 import com.onlineTest.service.RankService;
 import com.onlineTest.service.RecordService;

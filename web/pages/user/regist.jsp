@@ -12,7 +12,7 @@
     <%@include file="/pages/common/head.jsp"%>
     <link type="text/css" rel="stylesheet" href="static/css/style.css" >
     <meta charset="UTF-8">
-    <title>尚硅谷会员注册页面</title>
+    <title>register</title>
     <style type="text/css">
         .login_form{
             height:420px;
