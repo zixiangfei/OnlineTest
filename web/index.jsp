@@ -30,11 +30,8 @@
     <div class="row">
         <div class="col-md-12">
             <p style="line-height:22px;">
-                Virtual Judge is not a real online judge. It can grab problems from other regular online judges and
-                simulate
-                submissions to other online judges.
-                It aims to enable holding contests when you don't have the test data.<br/><br/>
-                Virtual Judge currently supports the following online judges:<br/>
+                欢迎来到随堂测试系统。管理员账户可以对所有信息进行管理，教师可以管理题目、班级、测试信息，学生剋在线自主做题以及处理老师布置的任务。<br/><br/>
+
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/>
             </p>
         </div>
